@@ -1,0 +1,87 @@
+---
+import { site } from '@config';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="foot">
+  <div class="wrap foot__inner">
+    <div>
+      <p class="foot__name">{site.name}</p>
+      <p class="foot__meta">{site.role} · {site.school}</p>
+    </div>
+
+    <ul class="foot__links">
+      <li><a href={`mailto:${site.email}`}>{site.email}</a></li>
+      <li>
+        <a href={site.linkedin} target="_blank" rel="noopener noreferrer">
+          LinkedIn
+        </a>
+      </li>
+      {
+        site.github && (
+          <li>
+            <a href={site.github} target="_blank" rel="noopener noreferrer">
+              GitHub
+            </a>
+          </li>
+        )
+      }
+      <li><a href={site.resumeFile} download>Resume (PDF)</a></li>
+    </ul>
+  </div>
+
+  <div class="wrap">
+    <p class="foot__fine">© {year} {site.name}</p>
+  </div>
+</footer>
+
+<style>
+  .foot {
+    margin-top: auto;
+    border-top: 1px solid var(--rule);
+    padding-block: 2.5rem 1.75rem;
+  }
+
+  .foot__inner {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 1.5rem 2rem;
+  }
+
+  .foot__name {
+    font-weight: 600;
+  }
+
+  .foot__meta {
+    color: var(--ink-soft);
+    font-size: 0.9rem;
+  }
+
+  .foot__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem 1.5rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-size: 0.9rem;
+  }
+
+  .foot__links a {
+    color: var(--ink-soft);
+    text-decoration: none;
+  }
+
+  .foot__links a:hover {
+    color: var(--accent);
+    text-decoration: underline;
+  }
+
+  .foot__fine {
+    margin-top: 2rem;
+    font-size: 0.8rem;
+    color: var(--ink-faint);
+  }
+</style>

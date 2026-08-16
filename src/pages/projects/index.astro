@@ -1,0 +1,43 @@
+---
+import Base from '../../layouts/Base.astro';
+import ProjectGrid from '../../components/ProjectGrid.astro';
+import { getProjects } from '../../lib/projects';
+
+const projects = await getProjects();
+---
+
+<Base
+  title="Projects"
+  description="Mechanical engineering, instrumentation, and fabrication projects by Jack Friesen."
+>
+  <section class="wrap section">
+    <p class="eyebrow">Portfolio</p>
+    <h1>Projects</h1>
+    <p class="lede prose">
+      Research instrumentation, thermal systems, electronics, and things built
+      in a garage. Each one lists what I did and what actually came out of it.
+    </p>
+  </section>
+
+  <section class="wrap section--tight" style="padding-bottom: 5rem;">
+    {
+      projects.length > 0 ? (
+        <ProjectGrid projects={projects} />
+      ) : (
+        <p class="empty">No projects published yet.</p>
+      )
+    }
+  </section>
+</Base>
+
+<style>
+  .lede {
+    margin-top: 1rem;
+    color: var(--ink-soft);
+    font-size: 1.05rem;
+  }
+
+  .empty {
+    color: var(--ink-faint);
+  }
+</style>

@@ -1,0 +1,140 @@
+---
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  project: CollectionEntry<'projects'>;
+  /** Tell the browser to load the first few images eagerly. */
+  eager?: boolean;
+}
+
+const { project, eager = false } = Astro.props;
+const { title, blurb, cover, coverAlt, tags } = project.data;
+---
+
+<article class="card">
+  <a href={`/projects/${project.id}`} class="card__link">
+    <div class="card__media">
+      {
+        cover ? (
+          <Image
+            src={cover}
+            alt={coverAlt || title}
+            widths={[400, 800]}
+            sizes="(max-width: 48rem) 100vw, 32rem"
+            loading={eager ? 'eager' : 'lazy'}
+            class="card__img"
+          />
+        ) : (
+          /* No cover image yet — show a clean placeholder instead of a
+             broken box, so the grid still looks deliberate. */
+          <div class="card__placeholder" aria-hidden="true">
+            <span>{title}</span>
+          </div>
+        )
+      }
+    </div>
+
+    <div class="card__body">
+      <h3 class="card__title">{title}</h3>
+      <p class="card__blurb">{blurb}</p>
+
+      {
+        tags.length > 0 && (
+          <ul class="tags card__tags">
+            {tags.slice(0, 3).map((tag) => (
+              <li class="tag">{tag}</li>
+            ))}
+          </ul>
+        )
+      }
+    </div>
+  </a>
+</article>
+
+<style>
+  .card {
+    border: 1px solid var(--rule);
+    border-radius: var(--radius);
+    background: var(--surface);
+    overflow: hidden;
+    transition:
+      border-color 0.18s ease,
+      transform 0.18s ease;
+  }
+
+  .card:hover {
+    border-color: var(--rule-strong);
+    transform: translateY(-2px);
+  }
+
+  .card__link {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .card__media {
+    aspect-ratio: 16 / 10;
+    background: var(--accent-soft);
+    border-bottom: 1px solid var(--rule);
+    overflow: hidden;
+  }
+
+  .card__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .card__placeholder {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    place-items: center;
+    padding: 1.5rem;
+    text-align: center;
+    /* Faint engineering-paper grid. */
+    background-image:
+      linear-gradient(to right, var(--rule) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--rule) 1px, transparent 1px);
+    background-size: 22px 22px;
+  }
+
+  .card__placeholder span {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+
+  .card__body {
+    padding: 1.15rem 1.25rem 1.35rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    flex: 1;
+  }
+
+  .card__title {
+    font-size: 1.05rem;
+  }
+
+  .card:hover .card__title {
+    color: var(--accent);
+  }
+
+  .card__blurb {
+    color: var(--ink-soft);
+    font-size: 0.92rem;
+    line-height: 1.55;
+  }
+
+  .card__tags {
+    margin-top: auto;
+    padding-top: 0.5rem;
+  }
+</style>

@@ -1,0 +1,133 @@
+---
+import { site } from '@config';
+import Base from '../layouts/Base.astro';
+
+// Suggests a sensible filename when someone clicks Download.
+const downloadName = `${site.name.replace(/\s+/g, '-')}-Resume.pdf`;
+---
+
+<Base title="Resume" description={`Resume for ${site.name}, ${site.role} student at ${site.school}.`}>
+  <section class="wrap section--tight top">
+    <p class="eyebrow">Resume</p>
+    <div class="head">
+      <div>
+        <h1>Resume</h1>
+        <p class="updated">Last updated {site.resumeUpdated}</p>
+      </div>
+
+      <div class="actions">
+        <a href={site.resumeFile} download={downloadName} class="btn">
+          Download PDF
+        </a>
+        <a
+          href={site.resumeFile}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn btn--ghost"
+        >
+          Open in new tab
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap viewer-wrap">
+    <!-- Inline PDF viewer. Browsers that can't render a PDF inline
+         (most phones) fall back to the message inside the <object>. -->
+    <object data={site.resumeFile} type="application/pdf" class="viewer">
+      <div class="fallback">
+        <p><strong>Your browser can't show the PDF inline.</strong></p>
+        <p>Use the download button above, or open it in a new tab.</p>
+        <a href={site.resumeFile} download={downloadName} class="btn">
+          Download PDF
+        </a>
+      </div>
+    </object>
+
+    <!-- Phones get the fallback card directly; inline PDF on mobile is
+         unreliable and usually unreadable even when it does render. -->
+    <div class="mobile-note">
+      <p><strong>Resume PDF</strong></p>
+      <p class="mobile-note__text">
+        Best viewed full screen — tap below to open or save it.
+      </p>
+      <div class="actions">
+        <a href={site.resumeFile} download={downloadName} class="btn">Download</a>
+        <a href={site.resumeFile} target="_blank" rel="noopener noreferrer" class="btn btn--ghost">
+          Open
+        </a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .top {
+    padding-top: 3rem;
+  }
+
+  .head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1.25rem 2rem;
+  }
+
+  .updated {
+    margin-top: 0.5rem;
+    color: var(--ink-faint);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.06em;
+  }
+
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .viewer-wrap {
+    padding-block: 2rem 5rem;
+  }
+
+  .viewer {
+    display: block;
+    width: 100%;
+    height: min(85vh, 60rem);
+    border: 1px solid var(--rule);
+    border-radius: var(--radius);
+    background: var(--surface);
+  }
+
+  .fallback {
+    display: grid;
+    gap: 0.75rem;
+    justify-items: start;
+    padding: 2.5rem;
+  }
+
+  .mobile-note {
+    display: none;
+    padding: 2rem 1.5rem;
+    border: 1px solid var(--rule);
+    border-radius: var(--radius);
+    background: var(--surface);
+  }
+
+  .mobile-note__text {
+    color: var(--ink-soft);
+    font-size: 0.92rem;
+    margin-block: 0.4rem 1.25rem;
+  }
+
+  @media (max-width: 48rem) {
+    .viewer {
+      display: none;
+    }
+    .mobile-note {
+      display: block;
+    }
+  }
+</style>

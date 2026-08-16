@@ -1,0 +1,162 @@
+---
+import { Image } from 'astro:assets';
+import { site } from '@config';
+import Base from '../layouts/Base.astro';
+import ProjectGrid from '../components/ProjectGrid.astro';
+import { getFeaturedProjects } from '../lib/projects';
+import headshot from '../assets/headshot.jpg';
+
+const featured = await getFeaturedProjects(3);
+---
+
+<Base>
+  <!-- Hero -->
+  <section class="wrap hero">
+    <div class="hero__text">
+      <h1 class="hero__name">{site.name}</h1>
+      <p class="hero__role">{site.role} · {site.school}</p>
+      <p class="hero__tagline">{site.tagline}</p>
+
+      <div class="hero__actions">
+        <a href="/projects" class="btn">View projects</a>
+        <a href="/resume" class="btn btn--ghost">Resume</a>
+      </div>
+    </div>
+
+    <div class="hero__portrait">
+      <Image
+        src={headshot}
+        alt={`Portrait of ${site.name}`}
+        widths={[256, 512]}
+        sizes="256px"
+        loading="eager"
+      />
+    </div>
+  </section>
+
+  <!-- Intro -->
+  <section class="wrap section section--tight">
+    <div class="prose intro">
+      <p>{site.intro}</p>
+      <p><a href="/about">More about me →</a></p>
+    </div>
+  </section>
+
+  <!-- Selected work -->
+  <section class="wrap section">
+    <p class="eyebrow">Selected work</p>
+    <div class="head">
+      <h2>Projects</h2>
+      <a href="/projects" class="head__all">All projects →</a>
+    </div>
+    <ProjectGrid projects={featured} />
+  </section>
+
+  <!-- Contact call to action -->
+  <section class="wrap section">
+    <div class="cta">
+      <div>
+        <h2>Let's talk</h2>
+        <p class="cta__text">
+          I'm looking for internships and hands-on engineering work.
+        </p>
+      </div>
+      <a href="/contact" class="btn">Get in touch</a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .hero {
+    display: flex;
+    flex-wrap: wrap-reverse;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem 3rem;
+    padding-block: clamp(3rem, 9vw, 6rem);
+  }
+
+  .hero__text {
+    flex: 1 1 20rem;
+    min-width: 0;
+  }
+
+  .hero__name {
+    margin-bottom: 0.4rem;
+  }
+
+  .hero__role {
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+
+  .hero__tagline {
+    margin-top: 1.5rem;
+    max-width: 34rem;
+    font-size: clamp(1.05rem, 2vw, 1.2rem);
+    color: var(--ink-soft);
+    line-height: 1.6;
+  }
+
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 2rem;
+  }
+
+  .hero__portrait {
+    flex: 0 1 16rem;
+  }
+
+  .hero__portrait :global(img) {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    object-position: center 22%;
+    border-radius: var(--radius);
+    border: 1px solid var(--rule);
+  }
+
+  .intro {
+    font-size: 1.02rem;
+  }
+
+  .head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.75rem;
+  }
+
+  .head__all {
+    font-size: 0.9rem;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .head__all:hover {
+    text-decoration: underline;
+  }
+
+  .cta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: clamp(1.75rem, 4vw, 2.5rem);
+    border: 1px solid var(--rule);
+    border-radius: var(--radius);
+    background: var(--accent-soft);
+  }
+
+  .cta__text {
+    color: var(--ink-soft);
+    margin-top: 0.4rem;
+  }
+</style>

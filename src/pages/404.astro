@@ -1,0 +1,35 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base title="Page not found">
+  <section class="wrap section notfound">
+    <p class="eyebrow">Error 404</p>
+    <h1>That page doesn't exist</h1>
+    <p class="text prose">
+      The link may be out of date, or the address might have a typo in it.
+    </p>
+    <div class="actions">
+      <a href="/" class="btn">Go home</a>
+      <a href="/projects" class="btn btn--ghost">Browse projects</a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .notfound {
+    padding-block: clamp(4rem, 12vw, 8rem);
+  }
+
+  .text {
+    margin-top: 1rem;
+    color: var(--ink-soft);
+  }
+
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 2rem;
+  }
+</style>

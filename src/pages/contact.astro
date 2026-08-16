@@ -1,0 +1,294 @@
+---
+import { site } from '@config';
+import Base from '../layouts/Base.astro';
+
+// The form only appears once you've pasted a Web3Forms key into
+// site.config.ts. Until then the page still works — it just shows
+// the direct links instead of a broken form.
+const formEnabled = site.web3formsKey.length > 0;
+---
+
+<Base
+  title="Contact"
+  description={`Get in touch with ${site.name} — ${site.role} student at ${site.school}.`}
+>
+  <section class="wrap section">
+    <p class="eyebrow">Contact</p>
+    <h1>Get in touch</h1>
+    <p class="lede prose">
+      I'm actively looking for internships and hands-on engineering work. The
+      fastest way to reach me is email — I read everything.
+    </p>
+
+    <div class="cols">
+      <!-- Direct contact details: always visible, never depends on a service -->
+      <div class="direct">
+        <dl class="details">
+          <div class="details__row">
+            <dt>Email</dt>
+            <dd><a href={`mailto:${site.email}`}>{site.email}</a></dd>
+          </div>
+
+          <div class="details__row">
+            <dt>LinkedIn</dt>
+            <dd>
+              <a href={site.linkedin} target="_blank" rel="noopener noreferrer">
+                /in/jack-m-friesen
+              </a>
+            </dd>
+          </div>
+
+          {
+            site.github && (
+              <div class="details__row">
+                <dt>GitHub</dt>
+                <dd>
+                  <a href={site.github} target="_blank" rel="noopener noreferrer">
+                    {site.github.replace(/^https?:\/\/(www\.)?/, '')}
+                  </a>
+                </dd>
+              </div>
+            )
+          }
+
+          {
+            site.location && (
+              <div class="details__row">
+                <dt>Based in</dt>
+                <dd>{site.location}</dd>
+              </div>
+            )
+          }
+
+          <div class="details__row">
+            <dt>Resume</dt>
+            <dd><a href="/resume">View or download (PDF)</a></dd>
+          </div>
+        </dl>
+      </div>
+
+      <!-- Message form -->
+      {
+        formEnabled ? (
+          <form class="form" id="contact-form" action="https://api.web3forms.com/submit" method="POST">
+            <input type="hidden" name="access_key" value={site.web3formsKey} />
+            <input type="hidden" name="subject" value="New message from your portfolio site" />
+            <input type="hidden" name="from_name" value={site.name} />
+
+            {/* Honeypot: real people never fill this in, bots usually do. */}
+            <input
+              type="checkbox"
+              name="botcheck"
+              class="visually-hidden"
+              tabindex="-1"
+              autocomplete="off"
+            />
+
+            <div class="field">
+              <label for="name">Name</label>
+              <input type="text" id="name" name="name" required autocomplete="name" />
+            </div>
+
+            <div class="field">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" required autocomplete="email" />
+            </div>
+
+            <div class="field">
+              <label for="message">Message</label>
+              <textarea id="message" name="message" rows="6" required />
+            </div>
+
+            <button type="submit" class="btn">Send message</button>
+
+            <p class="status" id="form-status" role="status" aria-live="polite" />
+          </form>
+        ) : (
+          /* No form key set — show a plain email CTA instead.
+             To switch the message form on, add a Web3Forms key in
+             site.config.ts. Visitors never see anything about that. */
+          <div class="form-off">
+            <p><strong>Send me a message</strong></p>
+            <p class="form-off__text">
+              Email is the quickest way to reach me — I read everything and
+              usually reply within a day.
+            </p>
+            <a href={`mailto:${site.email}`} class="btn">
+              Email me
+            </a>
+          </div>
+        )
+      }
+    </div>
+  </section>
+</Base>
+
+{/* Submits without leaving the page, and shows the result inline.
+    If JavaScript is off, the form still posts normally. */}
+<script>
+  const form = document.getElementById('contact-form') as HTMLFormElement | null;
+  const status = document.getElementById('form-status');
+
+  if (form && status) {
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+
+      const button = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+      button.disabled = true;
+      status.textContent = 'Sending…';
+      status.className = 'status';
+
+      try {
+        const response = await fetch(form.action, {
+          method: 'POST',
+          headers: { Accept: 'application/json' },
+          body: new FormData(form),
+        });
+
+        if (response.ok) {
+          form.reset();
+          status.textContent = 'Thanks — your message is on its way.';
+          status.className = 'status status--ok';
+        } else {
+          throw new Error(String(response.status));
+        }
+      } catch {
+        status.innerHTML =
+          'Something went wrong. Please email me directly instead.';
+        status.className = 'status status--bad';
+      } finally {
+        button.disabled = false;
+      }
+    });
+  }
+</script>
+
+<style>
+  .lede {
+    margin-top: 1rem;
+    color: var(--ink-soft);
+    font-size: 1.05rem;
+  }
+
+  .cols {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    margin-top: 3rem;
+  }
+
+  @media (min-width: 52rem) {
+    .cols {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+      gap: 4rem;
+    }
+  }
+
+  .details {
+    margin: 0;
+    border-top: 1px solid var(--rule);
+  }
+
+  .details__row {
+    padding-block: 0.85rem;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .details dt {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+
+  .details dd {
+    margin: 0.3rem 0 0;
+    font-size: 0.95rem;
+    overflow-wrap: anywhere;
+  }
+
+  .form {
+    display: grid;
+    gap: 1.1rem;
+  }
+
+  .field {
+    display: grid;
+    gap: 0.4rem;
+  }
+
+  .field label {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--ink-soft);
+  }
+
+  .field input,
+  .field textarea {
+    width: 100%;
+    padding: 0.65rem 0.8rem;
+    font: inherit;
+    font-size: 0.95rem;
+    color: var(--ink);
+    background: var(--surface);
+    border: 1px solid var(--rule-strong);
+    border-radius: var(--radius);
+    resize: vertical;
+  }
+
+  .field input:focus,
+  .field textarea:focus {
+    border-color: var(--accent);
+    outline: none;
+    box-shadow: 0 0 0 3px var(--accent-soft);
+  }
+
+  .form .btn {
+    justify-self: start;
+  }
+
+  .form .btn:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+  }
+
+  .status:empty {
+    display: none;
+  }
+
+  .status {
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+  }
+
+  .status--ok {
+    color: var(--accent);
+  }
+
+  .status--bad {
+    color: #b3261e;
+  }
+
+  .form-off {
+    padding: 1.75rem;
+    border: 1px solid var(--rule);
+    border-radius: var(--radius);
+    background: var(--surface);
+    align-self: start;
+  }
+
+  .form-off__text {
+    color: var(--ink-soft);
+    font-size: 0.92rem;
+    margin-block: 0.5rem 1.25rem;
+  }
+
+  .form-off code {
+    font-family: var(--font-mono);
+    font-size: 0.85em;
+    background: var(--accent-soft);
+    padding: 0.1em 0.35em;
+    border-radius: 3px;
+  }
+</style>

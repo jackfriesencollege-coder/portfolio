@@ -1,0 +1,16 @@
+---
+import Base from '../layouts/Base.astro';
+import { Content as AboutBody } from '../content/about.md';
+---
+
+<Base
+  title="About"
+  description="Background, research, and how I got into mechanical engineering."
+>
+  <section class="wrap section">
+    <p class="eyebrow">About</p>
+    <div class="prose">
+      <AboutBody />
+    </div>
+  </section>
+</Base>

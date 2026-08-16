@@ -1,0 +1,28 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import ProjectCard from './ProjectCard.astro';
+
+interface Props {
+  projects: CollectionEntry<'projects'>[];
+}
+
+const { projects } = Astro.props;
+---
+
+<div class="grid">
+  {
+    projects.map((project, i) => (
+      <ProjectCard project={project} eager={i < 3} />
+    ))
+  }
+</div>
+
+<style>
+  .grid {
+    display: grid;
+    /* Cards reflow automatically: 3 across on desktop, 2 on tablet,
+       1 on phones. No breakpoints to maintain. */
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 19rem), 1fr));
+    gap: 1.5rem;
+  }
+</style>

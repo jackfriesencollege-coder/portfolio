@@ -1,0 +1,253 @@
+---
+import { render } from 'astro:content';
+import { Image } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import { getProjects, formatDate } from '../../lib/projects';
+
+export async function getStaticPaths() {
+  const projects = await getProjects();
+
+  return projects.map((project, i) => ({
+    params: { slug: project.id },
+    props: {
+      project,
+      // Projects are sorted newest-first, so "next" is the older one.
+      newer: i > 0 ? projects[i - 1] : null,
+      older: i < projects.length - 1 ? projects[i + 1] : null,
+    },
+  }));
+}
+
+const { project, newer, older } = Astro.props;
+const { title, blurb, date, cover, coverAlt, tags, role, timeframe, link, linkLabel } =
+  project.data;
+
+const { Content } = await render(project);
+
+// Only render the facts panel if at least one fact exists.
+const facts = [
+  { label: 'Role', value: role },
+  { label: 'Timeframe', value: timeframe ?? formatDate(date) },
+].filter((f) => f.value);
+---
+
+<Base title={title} description={blurb}>
+  <article>
+    <!-- Header -->
+    <header class="wrap section--tight head">
+      <a href="/projects" class="back">← All projects</a>
+      <h1 class="head__title">{title}</h1>
+      <p class="head__blurb prose">{blurb}</p>
+
+      {
+        tags.length > 0 && (
+          <ul class="tags head__tags">
+            {tags.map((tag) => (
+              <li class="tag">{tag}</li>
+            ))}
+          </ul>
+        )
+      }
+    </header>
+
+    <!-- Cover image -->
+    {
+      cover && (
+        <div class="wrap cover">
+          <Image
+            src={cover}
+            alt={coverAlt || title}
+            widths={[640, 1024, 1600]}
+            sizes="(max-width: 68rem) 100vw, 68rem"
+            loading="eager"
+          />
+        </div>
+      )
+    }
+
+    <!-- Body -->
+    <div class="wrap body">
+      {
+        facts.length > 0 && (
+          <aside class="facts">
+            <dl>
+              {facts.map((fact) => (
+                <div class="facts__row">
+                  <dt>{fact.label}</dt>
+                  <dd>{fact.value}</dd>
+                </div>
+              ))}
+            </dl>
+            {link && (
+              <a href={link} class="btn btn--ghost facts__link" target="_blank" rel="noopener noreferrer">
+                {linkLabel}
+              </a>
+            )}
+          </aside>
+        )
+      }
+
+      <div class="prose body__content">
+        <Content />
+      </div>
+    </div>
+
+    <!-- Prev / next -->
+    {
+      (newer || older) && (
+        <nav class="wrap pager" aria-label="More projects">
+          {newer ? (
+            <a href={`/projects/${newer.id}`} class="pager__item">
+              <span class="pager__dir">← Newer</span>
+              <span class="pager__title">{newer.data.title}</span>
+            </a>
+          ) : (
+            <span />
+          )}
+          {older && (
+            <a href={`/projects/${older.id}`} class="pager__item pager__item--right">
+              <span class="pager__dir">Older →</span>
+              <span class="pager__title">{older.data.title}</span>
+            </a>
+          )}
+        </nav>
+      )
+    }
+  </article>
+</Base>
+
+<style>
+  .head {
+    padding-top: 2.5rem;
+  }
+
+  .back {
+    display: inline-block;
+    font-size: 0.88rem;
+    color: var(--ink-soft);
+    text-decoration: none;
+    margin-bottom: 1.75rem;
+  }
+
+  .back:hover {
+    color: var(--accent);
+  }
+
+  .head__title {
+    max-width: 24ch;
+  }
+
+  .head__blurb {
+    margin-top: 1rem;
+    font-size: 1.1rem;
+    color: var(--ink-soft);
+  }
+
+  .head__tags {
+    margin-top: 1.5rem;
+  }
+
+  .cover {
+    margin-top: 2.5rem;
+  }
+
+  .cover :global(img) {
+    width: 100%;
+    max-height: 32rem;
+    object-fit: cover;
+    border: 1px solid var(--rule);
+    border-radius: var(--radius);
+  }
+
+  .body {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    padding-block: 3rem 4rem;
+  }
+
+  /* On wide screens the facts panel sits to the left of the writeup. */
+  @media (min-width: 56rem) {
+    .body {
+      grid-template-columns: 13rem minmax(0, 1fr);
+      gap: 4rem;
+    }
+    .facts {
+      position: sticky;
+      top: 5.5rem;
+      align-self: start;
+    }
+  }
+
+  .facts dl {
+    margin: 0;
+    border-top: 1px solid var(--rule);
+  }
+
+  .facts__row {
+    padding-block: 0.7rem;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .facts dt {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+
+  .facts dd {
+    margin: 0.2rem 0 0;
+    font-size: 0.92rem;
+  }
+
+  .facts__link {
+    margin-top: 1.25rem;
+    font-size: 0.88rem;
+    padding: 0.5rem 0.9rem;
+  }
+
+  .body__content {
+    min-width: 0;
+  }
+
+  .pager {
+    display: flex;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding-block: 2rem 4rem;
+    border-top: 1px solid var(--rule);
+  }
+
+  .pager__item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    max-width: 20rem;
+    text-decoration: none;
+    color: var(--ink);
+  }
+
+  .pager__item--right {
+    text-align: right;
+    margin-left: auto;
+  }
+
+  .pager__dir {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+
+  .pager__title {
+    font-size: 0.95rem;
+    font-weight: 500;
+  }
+
+  .pager__item:hover .pager__title {
+    color: var(--accent);
+  }
+</style>
