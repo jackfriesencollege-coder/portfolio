@@ -8,10 +8,14 @@
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "check": "astro check"
+    "check": "astro check",
+    "deploy": "astro build && wrangler pages deploy dist --project-name jack-friesen"
   },
   "dependencies": {
     "astro": "^5.0.0",
     "sharp": "^0.33.0"
+  },
+  "devDependencies": {
+    "wrangler": "^4.123.0"
   }
 }

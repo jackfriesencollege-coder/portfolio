@@ -88,13 +88,28 @@ overwrite it. Then you only ever change the date.
 
 ## Publishing your changes
 
+Live site: **https://jack-friesen.pages.dev**
+
+```powershell
+npm run deploy
+```
+
+That builds the site and uploads it to Cloudflare. Live in under a minute.
+
+The first time you run it, a browser window opens to sign in to Cloudflare.
+After that it's silent.
+
+Saving your work to GitHub is a separate step (do both — GitHub is your backup
+and undo history):
+
 ```powershell
 git add .
 git commit -m "Add load cell project"
 git push
 ```
 
-Cloudflare rebuilds the site automatically. Live in about a minute.
+> Pushing to GitHub does **not** publish the site on its own. `npm run deploy`
+> is what publishes.
 
 ---
 
@@ -127,6 +142,7 @@ Anything not listed above is machinery you can ignore.
 | Command           | What it does                                  |
 | ----------------- | --------------------------------------------- |
 | `npm run dev`     | Preview locally at http://localhost:4321      |
+| `npm run deploy`  | Build and publish to jack-friesen.pages.dev   |
 | `npm run build`   | Build the final site into `dist/`             |
 | `npm run preview` | View the built site exactly as visitors see it |
 
