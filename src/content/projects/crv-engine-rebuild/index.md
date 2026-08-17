@@ -18,6 +18,8 @@ the pistons kept moving and the valves didn't, and they met.
 
 The result was bent valves and a cylinder head that had to come off.
 
+![The 2001 Honda CR-V the rebuild was done on](./the-car.jpg)
+
 ![Engine bay with the valve cover removed, camshafts and timing components exposed](./engine-bay.jpg)
 
 ## Teardown
@@ -37,6 +39,12 @@ The head gasket comes off with it — and its condition is worth reading before
 you throw it away, since it records how the head and block were sealing.
 
 ![Cylinder head and used head gasket laid out on cardboard](./head-gasket.jpg)
+
+Laid out on the driveway, the scope of the job is easier to see than to
+describe — timing components, valve cover, intake, oil pan, and the full gasket
+set, all of which has to come off and go back on in the right order.
+
+![Engine components laid out on the driveway during the rebuild — timing belt, gaskets, intake manifold, valve cover, and oil pan](./parts-laid-out.jpg)
 
 ## Keeping track
 
