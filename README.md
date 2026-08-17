@@ -113,11 +113,23 @@ git push
 
 ---
 
+## Sending new photos and documents
+
+Drop them in **`_source/_inbox/`** and say they're there. No need to sort,
+rename, or resize — straight off the phone is best, since the site makes its own
+smaller copies. Once they're used they get filed into `_source/<project>/`.
+
+`_source/` is git-ignored, so originals stay on your machine and never bloat the
+repo. See `_source/README.md`.
+
 ## Folder map
 
 ```
 Engineering Portfolio/
 ├─ site.config.ts          ← your name, email, links, resume filename
+├─ _source/                ← original photos & documents (never published)
+│  ├─ _inbox/              ← drop new files here
+│  └─ <project>/           ← originals, one folder per project
 ├─ public/
 │  ├─ resume/              ← your resume PDF goes here
 │  └─ favicon.svg
@@ -125,7 +137,7 @@ Engineering Portfolio/
    ├─ assets/headshot.jpg  ← replace to change your photo (keep the name)
    ├─ content/
    │  ├─ about.md          ← your bio
-   │  └─ projects/         ← one folder per project
+   │  └─ projects/         ← one folder per project (what's on the site)
    │     └─ _template/     ← copy this to start a new one
    ├─ components/          ← reusable pieces (nav, footer, project card)
    ├─ layouts/             ← the page shell

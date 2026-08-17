@@ -25,8 +25,14 @@ Thumbs.db
 # cloudflare
 .wrangler/
 
-# photo drop zone — put raw camera/phone exports here.
-# Originals stay on your machine; only the copies placed into
-# src/content/projects/ get published.
-/iCloud Photos from Jack Friesen/
-/_incoming/
+# Original photos and documents. Kept locally, never published.
+# Drop new files in _source/_inbox/ — see _source/README.md
+/_source/
+
+# stray exports dropped in the project root
+/*.jpeg
+/*.jpg
+/*.png
+/*.pdf
+/*.pptx
+/*.docx
