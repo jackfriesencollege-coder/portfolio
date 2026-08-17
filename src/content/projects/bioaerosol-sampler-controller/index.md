@@ -45,11 +45,11 @@ committed it to a schematic and board layout.
 
 ![The control circuit schematic](./schematic.png)
 
-The board was laid out in **KiCad** — a controller carrying the pressure and flow
-sensor inputs, the drive output for the sampler, and the I²C and power
-connections.
+The board was laid out in **KiCad** — pressure and flow sensor inputs, tach and
+signal lines for the sampler, a relay output, front-panel buttons, a display
+header, and separate 9 V and 24 V rails.
 
-![The PCB layout in KiCad](./pcb-layout.jpg)
+![The KiCad board layout](./pcb-layout.png)
 
 Then fabricated and populated: screw terminals for the sensor and tach lines, a
 relay for switching the sampler, and headers for the controller and I²C bus.
@@ -59,7 +59,20 @@ relay for switching the sampler, and headers for the controller and I²C bus.
 Because the instrument runs outdoors, the electronics went into a **watertight
 enclosure** rather than sitting exposed on the stand.
 
+![CAD of the watertight enclosure with the control board and front panel](./enclosure-cad.png)
+
 ![The control electronics in their enclosure](./enclosure.jpg)
+
+## Characterising the instrument
+
+Before the loop could hold a flow rate, we needed to know how the impactor
+behaves — how pressure drop across the minor and major flows varies with both
+the motor flow and the vacuum flow driving the sample stream.
+
+![Contour maps of minor and major flow pressure drop against motor flow and vacuum flow](./pressure-drop.png)
+
+Those maps are what turn a pressure reading into a flow rate, and they define the
+operating region the controller has to work within.
 
 ## The control loop
 
@@ -69,11 +82,17 @@ rather than trusting an open-loop setting made once at the start of a run.
 
 Tuning is where the work actually is. Too aggressive and the loop chases sensor
 noise and hunts around the setpoint; too soft and it never catches a slow drift
-from a loading filter — which is exactly the disturbance the loop exists to
-reject.
+from a loading filter — exactly the disturbance the loop exists to reject.
 
 ## Result
 
-The sampler holds its target flow rate in real time through changing conditions,
-which keeps the size cut consistent and the collected samples comparable across
-a run and between deployments.
+Step-testing the controller between roughly 140 and 200 L/min, the measured flow
+tracks the commanded setpoint, settles without sustained hunting, and holds
+there.
+
+![Measured flow tracking commanded setpoint through repeated step changes between 140 and 200 L/min](./pid-response.png)
+
+That plot is the whole point of the project. It means the sampler holds its
+target flow in real time through changing conditions — which keeps the size cut
+consistent and the collected samples comparable across a run and between
+deployments.
