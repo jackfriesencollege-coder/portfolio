@@ -3,8 +3,8 @@ title: 'Portable Drive-In Movie Screen'
 blurb: 'A 7-foot freestanding PVC frame holding an 80-inch screen, modelled in Fusion 360 and built to pack into a car — a drive-in movie you can set up anywhere.'
 date: 2026-03-15
 tags: ['Fusion 360', 'Fabrication', 'PVC']
-cover: './cover.jpg'
-coverAlt: 'The assembled 80-inch screen standing freely in a living room'
+cover: './cad.jpg'
+coverAlt: 'Fusion 360 model of the freestanding PVC screen frame'
 role: 'Personal project'
 timeframe: '2026'
 ---
@@ -64,9 +64,9 @@ everything else.
 ## Result
 
 A working portable screen that sets up on flat ground and takes a projected image
-well.
+well — and, from the front seat, a drive-in you can put anywhere.
 
-![A movie projected on the screen after dark](./in-use.jpg)
+![The view from inside the car: a movie playing on the screen through the windscreen](./drivein.jpg)
 
 The useful lesson was how much a soft, personal requirement — *this has to be
 easy enough that we'll actually bother* — behaves exactly like an engineering

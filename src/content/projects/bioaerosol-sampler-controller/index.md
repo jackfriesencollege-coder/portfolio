@@ -3,9 +3,10 @@ title: 'Bioaerosol Sampler Control System'
 blurb: 'Custom KiCad PCB, watertight enclosure, and a tuned PID loop holding a 225 L/min virtual impactor at target flow in real time.'
 date: 2026-06-15
 tags: ['PCB Design', 'KiCad', 'Controls', 'Instrumentation']
-cover: './cover.jpg'
-coverAlt: 'The bioaerosol sampler test rig with flow gauges, control board, and ducting'
+cover: './cover.png'
+coverAlt: 'Exploded CAD view of the watertight controller enclosure, board, and front panel'
 featured: true
+featuredOrder: 1
 role: 'Design and build — BROADN Internship'
 timeframe: 'Summer 2026'
 ---
@@ -26,22 +27,21 @@ Set the flow once at the start of a run and you don't get a slightly worse
 sample. You get a sample whose size cut drifted, taken at a flow rate you can no
 longer state.
 
-## The rig
+## Where I started
 
-The controller was developed against the instrument on a test stand, with flow
-and pressure instrumentation in line so commanded flow could be compared against
-measured flow.
+I didn't start from nothing. There was already a basic controller for the
+sampler — a DAC driving the motor, with buttons and a screen for setting a speed
+by hand. What it couldn't do was know or hold a flow rate.
 
-![The sampler test rig with differential pressure gauges, control board, and insulated ducting](./cover.jpg)
+![The original controller rig: Arduino, screen, buttons, and breadboard on a plywood panel, wired to the sampler motor](./prototype-rig.jpg)
 
-![The rig from the side, showing the sampler body and instrumentation](./rig.jpg)
+Everything from there was mine to add. I implemented the **flow sensor** and a
+**relay** for switching the sampler on that breadboard rig first, so the sensing
+and switching were proven before anything became permanent.
 
 ## Electronics
 
-I prototyped the sensing and control circuit on a breadboard first, then
-committed it to a schematic and board layout.
-
-![Breadboard prototype of the sensing and control circuit](./breadboard.jpg)
+With the circuit working, I committed it to a schematic and board layout.
 
 ![The control circuit schematic](./schematic.png)
 
@@ -56,10 +56,14 @@ relay for switching the sampler, and headers for the controller and I²C bus.
 
 ![The fabricated and populated control board](./pcb-built.jpg)
 
-Because the instrument runs outdoors, the electronics went into a **watertight
-enclosure** rather than sitting exposed on the stand.
+Then I wrote the firmware and **integrated the pressure sensor**, which is what
+turns a raw reading into a flow rate the loop can act on.
 
-![CAD of the watertight enclosure with the control board and front panel](./enclosure-cad.png)
+The **enclosure came last**, once the board and its connectors were fixed — which
+is the right order. Designing a watertight box around electronics that are still
+changing means redrawing it every time a connector moves.
+
+![Exploded CAD view of the watertight enclosure, control board, and front panel](./enclosure-cad.png)
 
 ![The control electronics in their enclosure](./enclosure.jpg)
 

@@ -3,9 +3,10 @@ title: 'Two-Colour Pyrometer for Fire Radiative Power'
 blurb: 'A sub-$1000 handheld instrument to measure the radiative power of small fires — and the ray-tracing simulation that found a broken assumption underneath the optical design.'
 date: 2026-05-05
 tags: ['Optics', 'Instrumentation', 'Research', 'Simulation']
-cover: './cover.jpg'
-coverAlt: 'Illuminated light shield on the optical breadboard, with the printed detector arc in the foreground'
-featured: false
+cover: './ray-simulation.png'
+coverAlt: 'Ray-tracing simulation of light passing through two lenses onto a dispersing prism'
+featured: true
+featuredOrder: 3
 role: 'Undergraduate researcher — SURE Research program'
 timeframe: 'January – May 2026'
 ---
@@ -36,14 +37,10 @@ An IR source passes through two lenses onto a prism, which disperses the light
 into its wavelengths, and a photodiode reads a chosen band. A prism was chosen
 over optical filters because it's cheaper and simpler.
 
-![Top-down view of the optical bench with the IR bulb, lens mounts, and the detector arc](./bench-topdown.jpg)
-
 The photodiode produces current in the **nanoamp** range, far too small for a
 microcontroller, so it feeds a Boston Electronics MultiBoard that drops it across
 a resistance and amplifies the result into a 0–4 V signal an ESP32 or Arduino can
 read.
-
-![The detector amplifier board](./detector-board.jpg)
 
 ## Debugging the sensor
 
@@ -75,14 +72,12 @@ the sensor was finally doing what its documentation said it would.
 The curved arc sweeps the photodiode through the spread-out light, so peak
 response is found by measurement rather than assumed from calculation.
 
-![Aperture masks used to select the detection band](./aperture-masks.jpg)
-
 Stray light was a persistent problem — reflections off the breadboard and the
 room reaching the detector by unintended paths. We enclosed the source in a
 printed shield to block them, then lined it with foil once it became clear the
 lamp was hot enough to threaten the **PLA** it was printed from.
 
-![The illuminated light shield on the optical breadboard](./cover.jpg)
+![The illuminated light shield on the optical breadboard](./light-shield.jpg)
 
 ## The finding that mattered
 
@@ -126,8 +121,6 @@ known temperature of the bulb and predict that temperature from voltage** — th
 calibration the whole instrument depends on.
 
 ![Detector response captured during a sweep](./signal-trace.jpg)
-
-![The optical bench setup](./optical-bench.jpg)
 
 What remains is implementing the second photodiode — the "two colour" half, which
 needs the exact diffraction angles the simulation showed are hard to pin down —

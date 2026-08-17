@@ -39,6 +39,9 @@ const projects = defineCollection({
       tags: z.array(z.string()).default([]),
       // Shows this project on the home page.
       featured: z.boolean().default(false),
+      // Order of the featured projects on the home page: 1 shows first.
+      // Anything without a number falls to the end, newest first.
+      featuredOrder: z.number().optional(),
       // Hides it from the site without deleting the folder.
       draft: z.boolean().default(false),
       // Free-text facts listed in the sidebar of the project page.

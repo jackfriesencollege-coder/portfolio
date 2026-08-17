@@ -4,7 +4,7 @@ blurb: "Rebuilt my sister's car A/C in a rental driveway 700 miles from my garag
 date: 2026-08-01
 tags: ['Refrigeration', 'Diagnostics', 'Automotive']
 cover: './cover.jpg'
-coverAlt: 'R-134a manifold gauge set connected to the car under the hood'
+coverAlt: 'Jack working on the car A/C system under the hood in the rental driveway'
 role: 'Personal project'
 timeframe: 'August 2026'
 ---
@@ -29,21 +29,16 @@ running out for a fitting.
 Everything in that photo travelled in a family car alongside the luggage and the
 people.
 
-## Confirming the fault
+## Finding the leak
 
-I didn't take the shop's diagnosis on faith. A failed compressor and a
-refrigerant leak aren't the same problem, and they aren't fixed by the same
-parts — refrigerant isn't consumed, so if a system is low, it went somewhere.
+A failed compressor and a refrigerant leak aren't the same problem, and they
+aren't fixed by the same parts. Refrigerant isn't consumed — if a system is low,
+it went somewhere, and replacing the compressor without finding out where just
+buys you a few weeks.
 
-Reading the low and high side pressures with a manifold gauge set says a lot
-about whether you're low on charge, blocked, or looking at a compressor that
-isn't doing its job.
-
-![R-134a manifold gauge set connected to the low and high side ports](./cover.jpg)
-
-Pressures narrow it down but won't tell you *where*. UV dye and a blacklight will:
-the escaped dye fluoresces bright against everything around it, and the leak
-stops being a theory.
+So before anything came apart, I put UV dye through the system and went over it
+with a blacklight. Escaped dye fluoresces bright against everything around it,
+and the leak stops being a theory and becomes a spot you can point at.
 
 ![The leak located under UV light, the dye fluorescing against the surrounding components](./uv-leak.jpg)
 
@@ -53,7 +48,7 @@ Compressor, expansion valve, and condenser, then a flush to clear debris the
 failed compressor had pushed through the system. Skipping the flush just feeds
 the old failure into the new parts — an expensive way to do the job twice.
 
-![Working on the system in the driveway](./working.jpg)
+![Working on the A/C system under the hood](./cover.jpg)
 
 ## Recharging by weight
 
@@ -62,8 +57,10 @@ This is the step that gets done wrong most often. An A/C system takes a
 looks about right." Charging by gauge pressure alone is guessing, and both over-
 and undercharging cost you cooling performance.
 
-So the system got evacuated and charged back on a scale, tracking mass in against
-the spec.
+So the system got evacuated through a manifold set and charged back on a scale,
+tracking mass in against the spec.
+
+![R-134a manifold gauge set connected to the low and high side ports](./gauges.jpg)
 
 ![Refrigerant can inverted on a digital scale reading 13.3 oz during charging](./charge-by-weight.jpg)
 

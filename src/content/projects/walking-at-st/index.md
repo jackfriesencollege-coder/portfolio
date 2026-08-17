@@ -5,7 +5,7 @@ date: 2026-07-01
 tags: ['Fusion 360', 'Kinematics', 'Robotics', '3D Printing']
 cover: './cover.jpg'
 coverAlt: 'Fusion 360 render of the AT-ST leg assembly and body'
-featured: true
+featured: false
 role: 'Personal project'
 timeframe: 'Summer 2023 – present'
 ---
