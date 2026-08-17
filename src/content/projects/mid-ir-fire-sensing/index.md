@@ -3,7 +3,7 @@ title: 'Mid-IR Optical Fire Detection'
 blurb: 'Prototype optical sensing system isolating the 2 µm and 4 µm bands with photodiodes, lenses, and prisms for early fire detection.'
 date: 2026-05-05
 tags: ['Optics', 'Sensing', 'Research', 'Prototyping']
-featured: true
+featured: false
 role: 'Undergraduate researcher — SURE Research program'
 timeframe: 'January – May 2026'
 ---
