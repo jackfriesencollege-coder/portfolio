@@ -260,6 +260,26 @@ date that isn't in `YYYY-MM-DD` form.
 The path must start with `./` and match the filename exactly, capitals included.
 `./Cover.JPG` and `./cover.jpg` are different files.
 
+**Publishing fails with a network error.**
+Run this first — it tests each service separately and names the one that
+is failing:
+
+```powershell
+.\deploy --check
+```
+
+Changing Wi-Fi rarely helps, because the cause is usually on this computer:
+
+| What the check says | What it means |
+| ------------------- | ------------- |
+| `unable to verify the first certificate` | Norton is inspecting encrypted traffic. Turn off its HTTPS/web scanning and retry. |
+| `ENOTFOUND` or `EAI_AGAIN` | DNS isn't resolving — genuinely offline, or a captive-portal Wi-Fi you haven't signed into. |
+| `ECONNREFUSED` or `ETIMEDOUT` | A VPN, firewall, or campus network is blocking it. |
+| `Cloudflare rejected the key` | Not a network problem. The key expired; make a new one. |
+
+If it says everything is reachable but publishing still fails, paste the
+output to Claude.
+
 **The site won't start at all.**
 Delete the `node_modules` folder and run `npm install` again.
 
