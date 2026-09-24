@@ -140,6 +140,60 @@ it; empty the list to hide the section entirely.
 
 ---
 
+## After you edit the website
+
+One command does the whole routine:
+
+```powershell
+.\publish "what you changed"
+```
+
+That saves your work to GitHub **and** puts the site live.
+
+To see what it would do without doing it:
+
+```powershell
+.\publish --check
+```
+
+### Or run the steps yourself
+
+Same thing, in this order:
+
+```powershell
+git add -A
+```
+
+```powershell
+git commit -m "what you changed"
+```
+
+```powershell
+git push
+```
+
+```powershell
+.\deploy
+```
+
+### Why the order matters
+
+**`git push` uploads commits, not files.** Saving a file in your editor tells
+Git nothing. You have to `add` it (pick it) and `commit` it (save it) before
+there is anything to push.
+
+Skip those two steps and you get exactly the pair of messages that look
+unrelated but are the same problem:
+
+| Message | What it actually means |
+| ------- | ---------------------- |
+| `Everything up-to-date` from `git push` | No *commits* to send. Your edits were never committed. |
+| `working directory ... has uncommitted changes` from Cloudflare | Same thing, seen from the other side. |
+
+Neither is an error about the website. Both mean: commit first.
+
+---
+
 ## Publishing your changes
 
 Live site: **https://jack-friesen.pages.dev**
@@ -238,6 +292,7 @@ Anything not listed above is machinery you can ignore.
 | ------------------ | ---------------------------------------------- |
 | `npm run dev`      | Preview locally at http://localhost:4321       |
 | `npm run dev:live` | Preview with the Google Doc and certificate PDFs working |
+| `.\publish "msg"` | Save to GitHub **and** publish — the usual one |
 | `.\deploy`        | Build and publish to jack-friesen.pages.dev    |
 | `npm run build`    | Build the final site into `dist/`              |
 | `npm run preview`  | View the built site exactly as visitors see it |
