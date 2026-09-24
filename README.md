@@ -22,6 +22,32 @@ Press `Ctrl + C` in the terminal to stop it.
 
 > First time only: run `npm install` before `npm run dev`.
 
+### If `npm` gives you an error about scripts being disabled
+
+Windows blocks `npm` in PowerShell by default. The error looks like this:
+
+```
+npm.ps1 cannot be loaded because running scripts is disabled on this system.
+```
+
+Nothing is broken — it's a Windows security setting. Two ways around it:
+
+**Fix it once** (recommended). Run this and answer **Y**:
+
+```powershell
+Set-ExecutionPolicy -Scope CurrentUser RemoteSigned
+```
+
+Every `npm` command then works normally, in this project and any other.
+
+**Or don't change anything** — type `npm.cmd` instead of `npm`:
+
+```powershell
+npm.cmd run dev
+```
+
+Publishing already avoids this entirely: `.\deploy` needs no such workaround.
+
 ---
 
 ## The four things you'll actually edit
@@ -119,10 +145,25 @@ it; empty the list to hide the section entirely.
 Live site: **https://jack-friesen.pages.dev**
 
 ```powershell
-npm run deploy
+.\deploy
 ```
 
 That builds the site and uploads it to Cloudflare. Live in under a minute.
+
+> **Why not `npm run deploy`?** It does the same thing, but Windows blocks it.
+> PowerShell treats `npm` as a script file (`npm.ps1`) and refuses to run scripts
+> under its default security setting, so you get *"npm.ps1 cannot be loaded
+> because running scripts is disabled on this system."* `.\deploy` is a plain
+> `.cmd` file, which that setting doesn't apply to.
+>
+> To use `npm` commands normally, run this once and answer **Y**:
+>
+> ```powershell
+> Set-ExecutionPolicy -Scope CurrentUser RemoteSigned
+> ```
+>
+> That's a change to how Windows handles scripts for your account, so it's
+> your call — `.\deploy` works fine either way.
 
 You are never asked to log in. Cloudflare needs a key to prove the upload is
 really from you, and that key sits in `.cloudflare-token` in your home folder
@@ -132,13 +173,13 @@ accident. The deploy script reads it for you.
 To confirm everything is wired up without publishing anything:
 
 ```powershell
-npm run deploy -- --check
+.\deploy --check
 ```
 
 > Run this from the project folder, **`C:\Users\jackf\Engineering Portfolio`**.
 > Running it anywhere else fails — the other "Engineering Portfolio" folder in
-> OneDrive is not the project, and neither `npm run deploy` nor `git push`
-> works from there.
+> OneDrive is not the project, and neither `.\deploy` nor `git push` works
+> from there.
 
 Saving your work to GitHub is a separate step (do both — GitHub is your backup
 and undo history):
@@ -197,7 +238,7 @@ Anything not listed above is machinery you can ignore.
 | ------------------ | ---------------------------------------------- |
 | `npm run dev`      | Preview locally at http://localhost:4321       |
 | `npm run dev:live` | Preview with the Google Doc and certificate PDFs working |
-| `npm run deploy`   | Build and publish to jack-friesen.pages.dev    |
+| `.\deploy`        | Build and publish to jack-friesen.pages.dev    |
 | `npm run build`    | Build the final site into `dist/`              |
 | `npm run preview`  | View the built site exactly as visitors see it |
 

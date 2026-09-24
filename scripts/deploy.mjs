@@ -2,7 +2,8 @@
 /* ==========================================================================
    PUBLISH THE SITE
    --------------------------------------------------------------------------
-   Run this with:  npm run deploy
+   Run this with:  .\deploy        (npm run deploy works too, but only
+                                   if PowerShell script execution is enabled.)
 
    It builds the site and uploads it to Cloudflare Pages.
 
@@ -14,8 +15,9 @@
    Node is invoked directly rather than through the astro/wrangler shortcuts,
    because those break on Windows paths containing spaces.
 
-   Run  npm run deploy -- --check  to confirm everything is set up without
-   actually publishing.
+   Add --check to confirm everything is set up without publishing:
+
+     .\deploy --check
    ========================================================================== */
 
 import { spawnSync } from 'node:child_process';
@@ -91,7 +93,7 @@ if (checkOnly) {
     `  Project          ${PROJECT}`,
     '  Build tools      astro and wrangler both installed',
     '',
-    'Run  npm run deploy  to publish for real.',
+    'Run  .\\deploy  to publish for real.',
     '',
   ].join('\n'));
   process.exit(0);
