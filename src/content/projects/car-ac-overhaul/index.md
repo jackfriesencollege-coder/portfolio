@@ -38,21 +38,15 @@ It is hard to see in this picture, but there were parts of the compressor that w
 
 ## The repair
 
-Compressor, expansion valve, and condenser, then a flush to clear debris the
-failed compressor had pushed through the system. Skipping the flush just feeds
-the old failure into the new parts — an expensive way to do the job twice.
+In most cases of a failed compressor, shrapnal from the pump is sent through the entire A/C system. In order to clear this out, I needed to replace the condensor, expansion valve, and the compressor, as well as flushing the entire system with a potent solvent to remove any debris from the failure.
 
 ![Working on the A/C system under the hood](./cover.jpg)
 
 ## Recharging by weight
 
-This is the step that gets done wrong most often. An A/C system takes a
-*specified mass* of refrigerant, not "however much it takes until the pressure
-looks about right." Charging by gauge pressure alone is guessing, and both over-
-and undercharging cost you cooling performance.
+This is the most important step in the repair process. Recharging by pressure often will lead to improper amounts of refrigerant being added, leading to compromised cooling performance, and potentially causing more damage to the rest of the system. 
 
-So the system got evacuated through a manifold set and charged back on a scale,
-tracking mass in against the spec.
+I pulled a vaccum on the system to remove any solvent or moisture, and charged the system by weight, using a kitchen scale to measure the proper amount of refrigerant. 
 
 ![R-134a manifold gauge set connected to the low and high side ports](./gauges.jpg)
 
@@ -60,13 +54,8 @@ tracking mass in against the spec.
 
 ## Result
 
-Working A/C, finished in a morning, done before the rest of the vacation started.
+Working A/C, finished in a day, done before the rest of the vacation started.
 
-The engineering lesson wasn't really about refrigeration — it was that when you
-can't iterate, the planning *is* the work. Every decision that mattered was made
-at home, packing the car, days before I saw the vehicle. That's a constraint I'd
-never had before: no second attempt, no parts store, no bailout.
+The engineering lesson I learned through this project was not really about design, but rather about stretegic planning. If I had not done the propper research and preperation beforehand, this repair would never have been completed, and my sister would still be without A/C. 
 
-The refrigeration knowledge was a bonus. I'd watched pressure and temperature
-change across each stage of the vapor-compression cycle with a gauge set in my
-hand well before I saw it drawn on a P–h diagram in class.
+Getting hands-on experience with refrigant cycles was a bonus for this project. I had seen P-h diagram in class once before, but being able to tangibly see and feel what was happening gives me a deeper knowledge of the complex thermodynamics at play in an A/C sytem. 
