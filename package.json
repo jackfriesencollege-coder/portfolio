@@ -8,6 +8,7 @@
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
+    "dev:live": "astro build && wrangler pages dev dist --compatibility-date=2026-08-18",
     "check": "astro check",
     "deploy": "astro build && wrangler pages deploy dist --project-name jack-friesen"
   },
@@ -16,6 +17,7 @@
     "sharp": "^0.33.0"
   },
   "devDependencies": {
+    "@cloudflare/workers-types": "^5.20260924.1",
     "wrangler": "^4.123.0"
   }
 }

@@ -1,65 +1,166 @@
 ---
 import { site } from '@config';
 import Base from '../layouts/Base.astro';
+import { fetchResumeDoc, transformResumeDoc } from '../lib/resume-doc';
 
-// Suggests a sensible filename when someone clicks Download.
-const downloadName = `${site.name.replace(/\s+/g, '-')}-Resume.pdf`;
+/* The resume is read from the Google Doc twice over:
+
+   1. Here, at build time, so the page has real content the instant it loads,
+      works with JavaScript switched off, and can be indexed by search engines.
+   2. In the browser, from /api/resume, so edits made to the doc since the last
+      deploy show up without anything being rebuilt.
+
+   If Google is unreachable during a build the page still ships — it just
+   leans on step 2 instead. */
+let resumeHtml: string | null = null;
+
+try {
+  const res = await fetchResumeDoc(site.resumeDocId, 'html');
+  resumeHtml = transformResumeDoc(await res.text(), {
+    redactPhoneNumbers: site.hidePhoneOnPage,
+  });
+} catch (error) {
+  // `fetch failed` on its own says nothing — the real reason is in `cause`.
+  const cause = error instanceof Error && error.cause ? ` (${error.cause})` : '';
+  console.warn(
+    `[resume] Could not read the Google Doc, so the page will load it in the ` +
+      `browser instead.\n         ${error}${cause}`,
+  );
+}
+
+const certs = site.certifications;
 ---
 
-<Base title="Resume" description={`Resume for ${site.name}, ${site.role} student at ${site.school}.`}>
+<Base
+  title="Resume"
+  description={`Resume for ${site.name}, ${site.role} student at ${site.school}.`}
+>
   <section class="wrap section--tight top">
     <p class="eyebrow">Resume</p>
     <div class="head">
       <div>
         <h1>Resume</h1>
-        <p class="updated">Last updated {site.resumeUpdated}</p>
+        <p class="source">Kept in sync with my master document</p>
       </div>
 
       <div class="actions">
-        <a href={site.resumeFile} download={downloadName} class="btn">
-          Download PDF
-        </a>
-        <a
-          href={site.resumeFile}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="btn btn--ghost"
-        >
+        <a href="/resume.pdf?download" class="btn">Download PDF</a>
+        <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" class="btn btn--ghost">
           Open in new tab
         </a>
       </div>
     </div>
   </section>
 
-  <section class="wrap viewer-wrap">
-    <!-- Inline PDF viewer. Browsers that can't render a PDF inline
-         (most phones) fall back to the message inside the <object>. -->
-    <object data={site.resumeFile} type="application/pdf" class="viewer">
-      <div class="fallback">
-        <p><strong>Your browser can't show the PDF inline.</strong></p>
-        <p>Use the download button above, or open it in a new tab.</p>
-        <a href={site.resumeFile} download={downloadName} class="btn">
-          Download PDF
-        </a>
-      </div>
-    </object>
-
-    <!-- Phones get the fallback card directly; inline PDF on mobile is
-         unreliable and usually unreadable even when it does render. -->
-    <div class="mobile-note">
-      <p><strong>Resume PDF</strong></p>
-      <p class="mobile-note__text">
-        Best viewed full screen — tap below to open or save it.
-      </p>
-      <div class="actions">
-        <a href={site.resumeFile} download={downloadName} class="btn">Download</a>
-        <a href={site.resumeFile} target="_blank" rel="noopener noreferrer" class="btn btn--ghost">
-          Open
-        </a>
-      </div>
+  <section class="wrap resume-wrap">
+    <div class="resume" id="resume-body">
+      {
+        resumeHtml ? (
+          <Fragment set:html={resumeHtml} />
+        ) : (
+          <p class="placeholder">Loading the latest version of my resume…</p>
+        )
+      }
     </div>
+
+    {
+      !resumeHtml && (
+        <noscript>
+          <p class="placeholder">
+            The resume needs JavaScript to load here — or you can{' '}
+            <a href="/resume.pdf">read it as a PDF</a>.
+          </p>
+        </noscript>
+      )
+    }
   </section>
+
+  {
+    certs.length > 0 && (
+      <section class="wrap section certs" id="certifications">
+        <p class="eyebrow">Certifications</p>
+
+        {certs.map((cert) => (
+          <article class="cert">
+            <div class="head">
+              <div>
+                <h2 class="cert__name">
+                  {cert.name}
+                  {cert.abbr && <span class="cert__abbr">{cert.abbr}</span>}
+                </h2>
+                <p class="cert__issuer">
+                  {cert.issuer}
+                  {cert.earned && <span class="cert__dot">·</span>}
+                  {cert.earned}
+                </p>
+                {cert.note && <p class="cert__note">{cert.note}</p>}
+                {cert.credentialId && (
+                  <p class="cert__id">Credential ID {cert.credentialId}</p>
+                )}
+              </div>
+
+              <div class="actions">
+                <a href={`/certifications/${cert.slug}.pdf?download`} class="btn">
+                  Download
+                </a>
+                <a
+                  href={`/certifications/${cert.slug}.pdf`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="btn btn--ghost"
+                >
+                  Open
+                </a>
+              </div>
+            </div>
+
+            <object
+              data={`/certifications/${cert.slug}.pdf`}
+              type="application/pdf"
+              class="cert__viewer"
+              style={`aspect-ratio: ${cert.aspectRatio};`}
+              title={`${cert.name} certificate`}
+            >
+              <div class="cert__fallback">
+                <p>Your browser can't display the certificate inline.</p>
+                <a href={`/certifications/${cert.slug}.pdf`} class="btn">
+                  Open the PDF
+                </a>
+              </div>
+            </object>
+
+            {/* Phones can rarely render an embedded PDF legibly. */}
+            <div class="cert__mobile">
+              <a href={`/certifications/${cert.slug}.pdf`} class="btn">
+                View certificate
+              </a>
+            </div>
+          </article>
+        ))}
+      </section>
+    )
+  }
 </Base>
+
+<script is:inline>
+  /* Replaces the build-time copy with whatever the Google Doc says right now.
+     Silent on failure: under `npm run dev` this endpoint doesn't exist, and
+     the already-rendered resume is a perfectly good answer either way. */
+  (async () => {
+    const target = document.getElementById('resume-body');
+    if (!target) return;
+
+    try {
+      const res = await fetch('/api/resume', { headers: { accept: 'text/html' } });
+      if (!res.ok) return;
+
+      const html = (await res.text()).trim();
+      if (html) target.innerHTML = html;
+    } catch {
+      /* Offline or endpoint unavailable — keep what's on the page. */
+    }
+  })();
+</script>
 
 <style>
   .top {
@@ -74,7 +175,7 @@ const downloadName = `${site.name.replace(/\s+/g, '-')}-Resume.pdf`;
     gap: 1.25rem 2rem;
   }
 
-  .updated {
+  .source {
     margin-top: 0.5rem;
     color: var(--ink-faint);
     font-family: var(--font-mono);
@@ -88,45 +189,170 @@ const downloadName = `${site.name.replace(/\s+/g, '-')}-Resume.pdf`;
     gap: 0.75rem;
   }
 
-  .viewer-wrap {
-    padding-block: 2rem 5rem;
+  .resume-wrap {
+    padding-block: 1.5rem 1rem;
   }
 
-  .viewer {
+  .placeholder {
+    color: var(--ink-soft);
+  }
+
+  /* ---- The resume itself ----------------------------------------------
+     These styles target markup generated from the Google Doc, so they're
+     written against plain tags rather than class names. */
+
+  .resume {
+    max-width: 46rem;
+  }
+
+  /* Section titles are normalised to small caps here, which keeps them
+     consistent even when the doc mixes "EDUCATION" with "Involvement". */
+  .resume :global(h2) {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    padding-bottom: 0.5rem;
+    margin-top: 2.75rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .resume :global(h2:first-child) {
+    margin-top: 0;
+  }
+
+  /* A job or project title with its date pushed out to the right margin. */
+  .resume :global(.resume-row) {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.1rem 1.5rem;
+    margin-top: 1.5rem;
+  }
+
+  .resume :global(.resume-row__title) {
+    font-weight: 600;
+  }
+
+  .resume :global(.resume-row__meta) {
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    letter-spacing: 0.04em;
+    color: var(--ink-faint);
+    white-space: nowrap;
+  }
+
+  .resume :global(ul) {
+    margin: 0.45rem 0 0;
+    padding-left: 1.15rem;
+  }
+
+  .resume :global(li) {
+    color: var(--ink-soft);
+  }
+
+  .resume :global(li + li) {
+    margin-top: 0.35rem;
+  }
+
+  .resume :global(li::marker) {
+    color: var(--ink-faint);
+  }
+
+  .resume :global(p) {
+    margin-top: 0.6rem;
+  }
+
+  .resume :global(b) {
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  /* ---- Certifications -------------------------------------------------- */
+
+  .certs {
+    padding-top: 3rem;
+  }
+
+  .cert + .cert {
+    margin-top: 3.5rem;
+  }
+
+  .cert__name {
+    font-size: 1.15rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.55rem;
+  }
+
+  .cert__abbr {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    color: var(--ink-soft);
+    background: var(--accent-soft);
+    border-radius: 3px;
+    padding: 0.2rem 0.45rem;
+  }
+
+  .cert__issuer {
+    margin-top: 0.4rem;
+    color: var(--ink-soft);
+    font-size: 0.95rem;
+  }
+
+  .cert__dot {
+    margin-inline: 0.45rem;
+    color: var(--ink-faint);
+  }
+
+  .cert__note {
+    margin-top: 0.2rem;
+    color: var(--ink-faint);
+    font-size: 0.88rem;
+  }
+
+  .cert__id {
+    margin-top: 0.35rem;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.04em;
+    color: var(--ink-faint);
+  }
+
+  .cert__viewer {
     display: block;
     width: 100%;
-    height: min(85vh, 60rem);
+    max-width: 52rem;
+    margin-top: 1.75rem;
     border: 1px solid var(--rule);
     border-radius: var(--radius);
     background: var(--surface);
   }
 
-  .fallback {
+  .cert__fallback {
     display: grid;
     gap: 0.75rem;
     justify-items: start;
     padding: 2.5rem;
   }
 
-  .mobile-note {
+  .cert__mobile {
     display: none;
-    padding: 2rem 1.5rem;
-    border: 1px solid var(--rule);
-    border-radius: var(--radius);
-    background: var(--surface);
-  }
-
-  .mobile-note__text {
-    color: var(--ink-soft);
-    font-size: 0.92rem;
-    margin-block: 0.4rem 1.25rem;
+    margin-top: 1.5rem;
   }
 
   @media (max-width: 48rem) {
-    .viewer {
+    .cert__viewer {
       display: none;
     }
-    .mobile-note {
+    .cert__mobile {
       display: block;
     }
   }

@@ -65,16 +65,44 @@ Useful extras:
 
 ### 2. Update your resume
 
-1. Put the new PDF in `public/resume/`
-2. Open `site.config.ts` and update these two lines:
+**Edit the Google Doc. That's the whole job.**
 
-```ts
-resumeFile: '/resume/Jack-Friesen-Resume.pdf',   // must match the filename exactly
-resumeUpdated: 'August 2026',
+The site reads your resume straight from
+[the doc](https://docs.google.com/document/d/1HkGkmdoUi80LOQhGJcyKhKJCz7MwMlj1UZtp53juLa8/edit) —
+both the text on the page and the "Download PDF" button. Changes show up
+within about five minutes. Nothing to rebuild, re-upload, or re-deploy.
+
+A few things worth knowing:
+
+| What you do in the doc | What the site does |
+| ---------------------- | ------------------ |
+| Bold some text | Renders bold |
+| A line with a horizontal rule under it | Becomes a section heading |
+| Tab across to a date | Date is pushed to the right margin |
+| Bullet list | Stays a bullet list |
+
+Section headings are shown in small caps regardless of how you type them, so
+`EDUCATION` and `Involvement` come out looking the same.
+
+**Your phone number is stripped from the page**, so bots can't scrape it. The
+PDF download is your untouched document and still has it. To change that, set
+`hidePhoneOnPage: false` in `site.config.ts`.
+
+The doc has to stay shared as **"Anyone with the link can view"**. If sharing
+is ever turned off, the page falls back to whatever it last saw at build time.
+
+### 2b. Add a certification
+
+Upload the certificate PDF to Google Drive, share it as **"Anyone with the
+link can view"**, then copy the id out of its address:
+
+```
+drive.google.com/file/d/THIS-PART-HERE/view
 ```
 
-Easiest approach: always name the file `Jack-Friesen-Resume.pdf` and just
-overwrite it. Then you only ever change the date.
+Add a block to `certifications` in `site.config.ts` and it appears on the
+resume page, with a viewer and a download button. Delete the block to remove
+it; empty the list to hide the section entirely.
 
 ### 3. Edit your bio
 
@@ -126,12 +154,13 @@ repo. See `_source/README.md`.
 
 ```
 Engineering Portfolio/
-├─ site.config.ts          ← your name, email, links, resume filename
+├─ site.config.ts          ← your name, email, links, resume doc, certifications
 ├─ _source/                ← original photos & documents (never published)
 │  ├─ _inbox/              ← drop new files here
 │  └─ <project>/           ← originals, one folder per project
+├─ functions/              ← fetches the resume & certificates from Google
 ├─ public/
-│  ├─ resume/              ← your resume PDF goes here
+│  ├─ _redirects           ← keeps old resume links working
 │  └─ favicon.svg
 └─ src/
    ├─ assets/headshot.jpg  ← replace to change your photo (keep the name)
@@ -151,12 +180,18 @@ Anything not listed above is machinery you can ignore.
 
 ## Commands
 
-| Command           | What it does                                  |
-| ----------------- | --------------------------------------------- |
-| `npm run dev`     | Preview locally at http://localhost:4321      |
-| `npm run deploy`  | Build and publish to jack-friesen.pages.dev   |
-| `npm run build`   | Build the final site into `dist/`             |
-| `npm run preview` | View the built site exactly as visitors see it |
+| Command            | What it does                                   |
+| ------------------ | ---------------------------------------------- |
+| `npm run dev`      | Preview locally at http://localhost:4321       |
+| `npm run dev:live` | Preview with the Google Doc and certificate PDFs working |
+| `npm run deploy`   | Build and publish to jack-friesen.pages.dev    |
+| `npm run build`    | Build the final site into `dist/`              |
+| `npm run preview`  | View the built site exactly as visitors see it |
+
+> `npm run dev` is the fast one you'll use most. It can't serve the live
+> resume or the certificate PDFs, because those need Cloudflare's server —
+> the resume still shows, just frozen as of the last build. Use
+> `npm run dev:live` when you specifically want to check those.
 
 ---
 
@@ -173,3 +208,13 @@ The path must start with `./` and match the filename exactly, capitals included.
 
 **The site won't start at all.**
 Delete the `node_modules` folder and run `npm install` again.
+
+**The resume page is empty, or shows an old version.**
+Check the Google Doc is still shared as "Anyone with the link can view" —
+that's nearly always the cause. Edits can also take up to five minutes to
+appear, since the site caches the doc to stay fast.
+
+**A build prints `unable to verify the first certificate`.**
+Norton intercepts secure connections, and Node doesn't trust its certificate
+by default. Your normal terminal is already set up for this. If it ever does
+happen, `node --use-system-ca` tells Node to trust Windows' certificate store.

@@ -1,0 +1,6 @@
+# The resume used to be a static file at this exact path. It now comes straight
+# from the Google Doc, so old links and bookmarks point at the new one.
+#
+# Keep this rule specific. A wildcard like /resume/* would also match the
+# /resume page itself and send visitors to the PDF instead.
+/resume/Jack-Friesen-Resume.pdf  /resume.pdf  301

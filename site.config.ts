@@ -33,11 +33,45 @@ export const site = {
   location: '',
 
   /* ---- Resume ---------------------------------------------------------
-     To update your resume: drop the new PDF into  public/resume/
-     then change the filename below to match it exactly.
-     Keep the leading slash.                                              */
-  resumeFile: '/resume/Jack-Friesen-Resume.pdf',
-  resumeUpdated: 'August 2026',
+     The resume is pulled straight from your Google Doc — both the text on
+     the page and the PDF download. Edit the doc, and the site follows a few
+     minutes later. Nothing to rebuild, re-upload, or re-deploy.
+
+     The doc must be shared as "Anyone with the link can view".
+
+     To point at a different document, copy the long id out of its address:
+     docs.google.com/document/d/THIS-PART-HERE/edit                       */
+  resumeDocId: '1HkGkmdoUi80LOQhGJcyKhKJCz7MwMlj1UZtp53juLa8',
+
+  /* Phone numbers are stripped from the page text so bots can't harvest
+     them. The PDF download is your untouched document and still has it.
+     Set to false if you'd rather show it.                                */
+  hidePhoneOnPage: true,
+
+  /* ---- Certifications -------------------------------------------------
+     One entry per certificate, newest first. Delete the block to hide the
+     section entirely.
+
+     Each `driveFileId` comes from a Google Drive file shared as "Anyone
+     with the link can view":
+     drive.google.com/file/d/THIS-PART-HERE/view
+
+     `slug` just decides the web address, e.g. /certifications/cswa.pdf    */
+  certifications: [
+    {
+      slug: 'cswa',
+      name: 'SOLIDWORKS Design Associate',
+      abbr: 'CSWA',
+      issuer: 'Dassault Systèmes',
+      earned: 'May 2026',
+      /* Shown as small print under the name. Set to '' to hide. */
+      note: 'Academic exam at Colorado State University',
+      credentialId: 'C-UYG8SQLPBR',
+      driveFileId: '18y64vhOyYjHFU9oSi9A_OTW7dlIeoEVt',
+      /* Certificates are landscape; this keeps the viewer the right shape. */
+      aspectRatio: '3 / 2',
+    },
+  ],
 
   /* ---- Contact form ---------------------------------------------------
      Free, no account needed. Go to https://web3forms.com, enter your
