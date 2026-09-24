@@ -1,6 +1,6 @@
 ---
 title: 'Driveway A/C Overhaul in Montana'
-blurb: "Rebuilt my sister's car A/C in a rental driveway 700 miles from my garage — compressor, expansion valve, and condenser, recharged to spec by weight."
+blurb: "Rebuilt my sister's car A/C in a rental driveway 700 miles from my garage: compressor, expansion valve, and condenser, recharged to spec by weight."
 date: 2026-08-01
 tags: ['Refrigeration', 'Diagnostics', 'Automotive']
 cover: './cover.jpg'
@@ -11,36 +11,30 @@ timeframe: 'August 2026'
 
 ## The situation
 
-My sister lives in Montana, and her car's air conditioning had quit. A shop had
-already diagnosed it: failed compressor.
+My sister lives in Montana, and her car's air conditioning had quit blowing cold. A shop had
+already diagnosed it: a leaking and failed compressor.
 
-The complication was logistics, not diagnosis. We were meeting her partway
-through a family vacation, in a scenic part of the state a long way from where
-she lives and much further from my garage. Whatever the repair needed, it was
+The hardest part of this project was logistics, not diagnosis. We were meeting her partway
+through a family vacation, in a scenic part of the Montana, tens of miles away from where
+she lives and hundreds away from my garage. Whatever the repair needed, it was
 going to happen **in the driveway of a rental house**, in one morning, with only
-what we'd brought.
-
-So the real constraint was this: I had to decide what tools and parts to pack
-before leaving home, knowing that anything I forgot didn't exist. There was no
-running out for a fitting.
+the tools and supplies we brought with us from home.
 
 ![The repair set up in the rental driveway, tools laid out under a pop-up canopy](./montana-driveway.jpg)
 
-Everything in that photo travelled in a family car alongside the luggage and the
-people.
+Everything in that photo travelled across the country with is in our SUV.
 
 ## Finding the leak
 
-A failed compressor and a refrigerant leak aren't the same problem, and they
-aren't fixed by the same parts. Refrigerant isn't consumed — if a system is low,
-it went somewhere, and replacing the compressor without finding out where just
-buys you a few weeks.
+Before doing the repair, I wanted to ensure that the compressor is what actually failed. The shop had said the leak was from the compressor intself, and I wanted to make sure it was actually the compressor that had broken, not a simple O-ring connection into the compressor. 
 
-So before anything came apart, I put UV dye through the system and went over it
-with a blacklight. Escaped dye fluoresces bright against everything around it,
-and the leak stops being a theory and becomes a spot you can point at.
+Before anything came apart, I put UV dye through the system and went over it
+with a blacklight. Leaking dye fluoresces bright against everything around it,
+and finding the leak becomes possible and easy.
 
 ![The leak located under UV light, the dye fluorescing against the surrounding components](./uv-leak.jpg)
+
+It is hard to see in this picture, but there were parts of the compressor that were glowing green under the UV light. I saw that the leak was coming from the seals within the compressor, and I knew the whole thing had to be replaced.
 
 ## The repair
 
