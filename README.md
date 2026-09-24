@@ -124,8 +124,21 @@ npm run deploy
 
 That builds the site and uploads it to Cloudflare. Live in under a minute.
 
-The first time you run it, a browser window opens to sign in to Cloudflare.
-After that it's silent.
+You are never asked to log in. Cloudflare needs a key to prove the upload is
+really from you, and that key sits in `.cloudflare-token` in your home folder
+— deliberately outside this project, so it can't be committed to GitHub by
+accident. The deploy script reads it for you.
+
+To confirm everything is wired up without publishing anything:
+
+```powershell
+npm run deploy -- --check
+```
+
+> Run this from the project folder, **`C:\Users\jackf\Engineering Portfolio`**.
+> Running it anywhere else fails — the other "Engineering Portfolio" folder in
+> OneDrive is not the project, and neither `npm run deploy` nor `git push`
+> works from there.
 
 Saving your work to GitHub is a separate step (do both — GitHub is your backup
 and undo history):
