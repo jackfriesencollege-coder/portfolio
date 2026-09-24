@@ -35,6 +35,40 @@ const SITE_URL = 'https://jack-friesen.pages.dev';
    makes it work. Harmless when nothing is intercepting. */
 const NORTON_CERT = 'C:/ProgramData/Norton/Antivirus/wscert.pem';
 
+/* Both of the settings that fix this are read by Node at startup, which is too
+   late to apply from inside a running script. So if they aren't already in
+   effect, start over: re-run this same file once with them in place. The
+   environment variable guards against doing that more than once. */
+const TLS_GUARD = 'PORTFOLIO_DEPLOY_TLS_READY';
+
+function tlsAlreadyHardened() {
+  return Boolean(
+    process.env[TLS_GUARD] ||
+      process.execArgv.includes('--use-system-ca') ||
+      (process.env.NODE_OPTIONS || '').includes('--use-system-ca'),
+  );
+}
+
+if (!tlsAlreadyHardened()) {
+  const childEnv = { ...process.env, [TLS_GUARD]: '1' };
+
+  if (!childEnv.NODE_EXTRA_CA_CERTS && existsSync(NORTON_CERT)) {
+    childEnv.NODE_EXTRA_CA_CERTS = NORTON_CERT;
+  }
+
+  // Older Node versions don't know the flag, and passing it would abort.
+  const supportsSystemCa = process.allowedNodeEnvironmentFlags.has('--use-system-ca');
+  const nodeArgs = supportsSystemCa ? ['--use-system-ca'] : [];
+
+  const relaunch = spawnSync(
+    process.execPath,
+    [...nodeArgs, fileURLToPath(import.meta.url), ...process.argv.slice(2)],
+    { stdio: 'inherit', env: childEnv },
+  );
+
+  process.exit(relaunch.status === null ? 1 : relaunch.status);
+}
+
 const checkOnly = process.argv.includes('--check');
 
 const line = (s = '') => console.log(s);
