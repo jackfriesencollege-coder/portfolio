@@ -53,26 +53,41 @@ const certs = site.certifications;
   </section>
 
   <section class="wrap resume-wrap">
+    {/* The real PDF, exactly as a recruiter would receive it by email. It's a
+        single US Letter page, so the frame is cut to that shape and the whole
+        thing is visible without a scrollbar inside a scrollbar. */}
+    <object
+      data="/resume.pdf#toolbar=0&navpanes=0"
+      type="application/pdf"
+      class="viewer"
+      title={`${site.name} — resume`}
+    >
+      <div class="viewer__fallback">
+        <p><strong>Your browser can't display the PDF here.</strong></p>
+        <p class="viewer__hint">Open or download it instead — it's the same document.</p>
+        <div class="actions">
+          <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" class="btn">
+            Open the PDF
+          </a>
+          <a href="/resume.pdf?download" class="btn btn--ghost">Download</a>
+        </div>
+      </div>
+    </object>
+
+    {/* Phones can't show an embedded PDF without pinch-zooming, so they get the
+        same resume as flowing text. This is also what search engines and screen
+        readers read, which a PDF embed gives them no way to do. */}
     <div class="resume" id="resume-body">
       {
         resumeHtml ? (
           <Fragment set:html={resumeHtml} />
         ) : (
-          <p class="placeholder">Loading the latest version of my resume…</p>
+          <p class="placeholder">
+            Loading my resume… you can also <a href="/resume.pdf">read it as a PDF</a>.
+          </p>
         )
       }
     </div>
-
-    {
-      !resumeHtml && (
-        <noscript>
-          <p class="placeholder">
-            The resume needs JavaScript to load here — or you can{' '}
-            <a href="/resume.pdf">read it as a PDF</a>.
-          </p>
-        </noscript>
-      )
-    }
   </section>
 
   {
@@ -197,11 +212,40 @@ const certs = site.certifications;
     color: var(--ink-soft);
   }
 
-  /* ---- The resume itself ----------------------------------------------
-     These styles target markup generated from the Google Doc, so they're
-     written against plain tags rather than class names. */
+  /* ---- PDF viewer ------------------------------------------------------ */
+
+  .viewer {
+    display: block;
+    width: 100%;
+    /* Matches the PDF's own MediaBox (612 x 792pt), so the page fills the
+       frame exactly rather than floating in grey letterboxing. */
+    aspect-ratio: 612 / 792;
+    max-width: 46rem;
+    border: 1px solid var(--rule);
+    border-radius: var(--radius);
+    background: var(--surface);
+  }
+
+  .viewer__fallback {
+    display: grid;
+    gap: 0.5rem;
+    justify-items: start;
+    padding: 2.5rem;
+  }
+
+  .viewer__hint {
+    color: var(--ink-soft);
+    font-size: 0.92rem;
+    margin-bottom: 0.75rem;
+  }
+
+  /* ---- The resume as text ----------------------------------------------
+     Shown on phones, where an embedded PDF is unreadable. These styles target
+     markup generated from the Google Doc, so they're written against plain
+     tags rather than class names. */
 
   .resume {
+    display: none;
     max-width: 46rem;
   }
 
@@ -348,10 +392,14 @@ const certs = site.certifications;
     margin-top: 1.5rem;
   }
 
+  /* Phones get text instead of an embedded PDF, for both the resume and the
+     certificates. */
   @media (max-width: 48rem) {
+    .viewer,
     .cert__viewer {
       display: none;
     }
+    .resume,
     .cert__mobile {
       display: block;
     }
