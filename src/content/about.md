@@ -1,33 +1,24 @@
 # About
 
-I'm a mechanical engineering student at Colorado State University, where I'm a
-Walter Scott, Jr. Scholar in the Honors College. I graduate in December 2028.
+As a Colorado native, it was the mountains that brought me to engineering. As a
+gearhead, it was cars that brought me to mechanical engineering.
 
-Most of what I do comes down to the same thing: take a physical system, figure
-out how it actually behaves, and build something that measures or controls it.
+Working on engines got me curious about what comes out of the tailpipe, and
+that curiosity is what pulled me toward emissions and aerosol research.
 
-## Research
+## Purpose
 
-At the **Powerhouse Energy Institute** I work on wildfire emissions research —
-most recently the control system for a 225 L/min bioaerosol sampler, from the
-KiCad PCB through to a tuned PID loop that holds it at a target flow rate.
+![The CSU Powerhouse counter showing tonnes of CO2 equivalent saved by research linked to the building](../assets/about/co2-counter.png)
 
-Before that I built a two-color pyrometer for measuring the radiative power of
-small fires, and spent a semester on a four-person team designing a passive
-thermosiphon solar still that produced about 3 L/hour from under $60 of
-hardware-store parts.
-
-## Before the lab
-
-I got here through cars and tools. Two years at **Discount Tire**, finishing as
-a crew chief; a cylinder head rebuilt in my garage after a timing belt failure
-bent the valves; a car's A/C system overhauled down to the compressor.
-
-That's the reason I'm comfortable with hardware that doesn't work yet.
+This is the picture that I am met with every single time I step foot in my
+research lab, and it is this idea that keeps me going when the project is hard.
+I know that my research is making an impact on the environment, protecting the
+mountains for generations to come.
 
 ## What I'm looking for
 
-Internships and hands-on engineering work — instrumentation, thermal systems,
-controls, or anything that has to survive contact with the real world.
+I would love to contribute to your team to help better the world! An
+internship, hands-on engineering experience, or anything else that will create
+a better future.
 
 The best way to reach me is [email](/contact).

@@ -1,16 +1,56 @@
 ---
 import Base from '../layouts/Base.astro';
+import Slideshow from '../components/Slideshow.astro';
 import { Content as AboutBody } from '../content/about.md';
+
+import longsPeak from '../assets/about/longs-peak.jpg';
+import skiing from '../assets/about/skiing.jpg';
+import buggy from '../assets/about/buggy.jpg';
+
+/* Faces other than mine are covered with a smiley, so nobody ends up on a
+   public page without having agreed to it. */
+const slides = [
+  { src: longsPeak, alt: 'On the summit of Longs Peak with a hand-lettered sign, 14,259 feet' },
+  { src: skiing, alt: 'Skiing high above a valley, with the snow-covered Rockies behind' },
+  { src: buggy, alt: 'Driving a dune buggy down a dirt road, trailing dust' },
+];
 ---
 
 <Base
   title="About"
-  description="Background, research, and how I got into mechanical engineering."
+  description="Why a Colorado gearhead ended up in emissions and aerosol research."
 >
   <section class="wrap section">
     <p class="eyebrow">About</p>
-    <div class="prose">
-      <AboutBody />
+
+    <div class="intro">
+      <Slideshow slides={slides} interval={5000} />
+
+      <div class="prose">
+        <AboutBody />
+      </div>
     </div>
   </section>
 </Base>
+
+<style>
+  /* The photos lead on narrow screens and move alongside the text once there's
+     room, so the page doesn't open with a wall of image on a phone. */
+  .intro {
+    display: grid;
+    gap: 2.5rem;
+    align-items: start;
+  }
+
+  @media (min-width: 56rem) {
+    .intro {
+      grid-template-columns: minmax(0, 28rem) minmax(0, 1fr);
+      gap: 3.5rem;
+    }
+  }
+
+  /* The first heading sits level with the top of the photo frame. */
+  .prose :global(h1:first-child) {
+    margin-top: -0.35rem;
+  }
+</style>

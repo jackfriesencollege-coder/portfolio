@@ -1,0 +1,225 @@
+---
+/* A plain crossfading slideshow.
+
+   It auto-advances, which browsers and screen readers treat as "moving
+   content", so it ships with a pause button and clickable dots. That isn't
+   decoration: anything that animates for more than five seconds needs a way to
+   stop it, or it becomes a problem for people who read slowly or get motion
+   sick. For the same reason it doesn't auto-advance at all for visitors whose
+   system asks for reduced motion — they get the dots and choose for
+   themselves.
+
+   With JavaScript off, the first photo shows and the rest stay hidden. */
+
+import { Image } from 'astro:assets';
+
+interface Slide {
+  src: ImageMetadata;
+  alt: string;
+}
+
+interface Props {
+  slides: Slide[];
+  /** Milliseconds each photo stays up. */
+  interval?: number;
+}
+
+const { slides, interval = 5000 } = Astro.props;
+---
+
+<div class="slideshow" data-interval={interval}>
+  <div class="frame">
+    {
+      slides.map((slide, i) => (
+        <div class:list={['slide', i === 0 && 'is-active']} aria-hidden={i === 0 ? 'false' : 'true'}>
+          <Image
+            src={slide.src}
+            alt={slide.alt}
+            widths={[420, 640, 900]}
+            sizes="(max-width: 34rem) 92vw, 28rem"
+            loading={i === 0 ? 'eager' : 'lazy'}
+          />
+        </div>
+      ))
+    }
+  </div>
+
+  {
+    slides.length > 1 && (
+      <div class="controls">
+        <button type="button" class="toggle" aria-pressed="false">
+          <span class="toggle__label">Pause</span>
+        </button>
+
+        <div class="dots">
+          {slides.map((slide, i) => (
+            <button
+              type="button"
+              class:list={['dot', i === 0 && 'is-active']}
+              aria-current={i === 0 ? 'true' : 'false'}
+              aria-label={`Show photo ${i + 1} of ${slides.length}`}
+            />
+          ))}
+        </div>
+      </div>
+    )
+  }
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>('.slideshow').forEach((root) => {
+    const slides = Array.from(root.querySelectorAll<HTMLElement>('.slide'));
+    const dots = Array.from(root.querySelectorAll<HTMLButtonElement>('.dot'));
+    const toggle = root.querySelector<HTMLButtonElement>('.toggle');
+    const label = root.querySelector<HTMLElement>('.toggle__label');
+    const interval = Number(root.dataset.interval) || 5000;
+
+    if (slides.length < 2) return;
+
+    const stillness = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let current = 0;
+    let timer: number | undefined;
+    let paused = stillness.matches;
+
+    function show(next: number) {
+      current = (next + slides.length) % slides.length;
+
+      slides.forEach((slide, i) => {
+        slide.classList.toggle('is-active', i === current);
+        slide.setAttribute('aria-hidden', i === current ? 'false' : 'true');
+      });
+
+      dots.forEach((dot, i) => {
+        dot.classList.toggle('is-active', i === current);
+        dot.setAttribute('aria-current', i === current ? 'true' : 'false');
+      });
+    }
+
+    function start() {
+      stop();
+      if (paused) return;
+      timer = window.setInterval(() => show(current + 1), interval);
+    }
+
+    function stop() {
+      if (timer !== undefined) window.clearInterval(timer);
+      timer = undefined;
+    }
+
+    function setPaused(value: boolean) {
+      paused = value;
+      toggle?.setAttribute('aria-pressed', String(paused));
+      if (label) label.textContent = paused ? 'Play' : 'Pause';
+      if (paused) stop();
+      else start();
+    }
+
+    toggle?.addEventListener('click', () => setPaused(!paused));
+
+    dots.forEach((dot, i) => {
+      dot.addEventListener('click', () => {
+        show(i);
+        // Clicking a dot is a deliberate choice; don't yank it away a moment
+        // later because the timer happened to be mid-cycle.
+        start();
+      });
+    });
+
+    // A slideshow ticking away in a background tab is wasted work.
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) stop();
+      else start();
+    });
+
+    stillness.addEventListener('change', (event) => setPaused(event.matches));
+
+    setPaused(paused);
+  });
+</script>
+
+<style>
+  .slideshow {
+    max-width: 28rem;
+  }
+
+  .frame {
+    position: relative;
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    border: 1px solid var(--rule);
+    border-radius: var(--radius);
+    background: var(--surface);
+  }
+
+  .slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 700ms ease;
+  }
+
+  .slide.is-active {
+    opacity: 1;
+  }
+
+  .slide :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .slide {
+      transition: none;
+    }
+  }
+
+  .controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 0.75rem;
+  }
+
+  .toggle {
+    padding: 0;
+    border: 0;
+    background: none;
+    cursor: pointer;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+
+  .toggle:hover {
+    color: var(--ink);
+  }
+
+  .dots {
+    display: flex;
+    gap: 0.4rem;
+  }
+
+  .dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    padding: 0;
+    border: 1px solid var(--rule-strong);
+    border-radius: 50%;
+    background: none;
+    cursor: pointer;
+    transition: background-color 150ms ease, border-color 150ms ease;
+  }
+
+  .dot:hover {
+    border-color: var(--ink-soft);
+  }
+
+  .dot.is-active {
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+</style>
