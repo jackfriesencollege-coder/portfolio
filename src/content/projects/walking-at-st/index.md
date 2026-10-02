@@ -81,8 +81,6 @@ That sheet is the bridge between the mechanical design and the code. Without it
 the servos are just three arbitrary angles; with it, the foot goes where you
 tell it.
 
-
-
 ## Result
 
 Still ongoing, which is the point of it. It's the project where I get to be
