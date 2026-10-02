@@ -4,13 +4,15 @@ import Slideshow from '../components/Slideshow.astro';
 import { Content as AboutBody } from '../content/about.md';
 
 import longsPeak from '../assets/about/longs-peak.jpg';
+import ridgeHike from '../assets/about/ridge-hike.jpg';
 import skiing from '../assets/about/skiing.jpg';
 import buggy from '../assets/about/buggy.jpg';
 
-/* Faces other than mine are covered with a smiley, so nobody ends up on a
-   public page without having agreed to it. */
+/* Everyone shown here has agreed to appear on the site. The one photo where
+   somebody hasn't (the movie screen project) is covered with a smiley instead. */
 const slides = [
   { src: longsPeak, alt: 'On the summit of Longs Peak with a hand-lettered sign, 14,259 feet' },
+  { src: ridgeHike, alt: 'Resting on a rocky ridge, looking out over an alpine valley while two hikers climb the trail below' },
   { src: skiing, alt: 'Skiing high above a valley, with the snow-covered Rockies behind' },
   { src: buggy, alt: 'Driving a dune buggy down a dirt road, trailing dust' },
 ];
