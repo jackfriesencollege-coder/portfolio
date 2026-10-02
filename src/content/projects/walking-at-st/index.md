@@ -41,49 +41,30 @@ After learning how to 3D print in a class in shcool, I picked up Fusion 360 and 
 
 ![Angled render showing the joint and linkage detail](./cad-detail.jpg)
 
-This design gives the hips and ankles two degrees of freedom, which allows the robot to place its center of mass on top of the center of the foot, which gives it the greates stability possible. 
+This design gives the hips and ankles two degrees of freedom, which allows the robot to place its center of mass on top of the center of the foot, which gives it the greatest stability possible. 
 
-## Printed hardware
+## Assembling the hardware
 
-Printed parts, micro servos at each joint, a battery, and a controller board mounted on top
-of the body.
+Printed parts, micro servos at each joint, a battery pack, and an arduino uno with a servo shield on top of the body.
 
 ![Body with servos and the controller board mounted](./controller.jpg)
 
-Comparing the printed part against the model on screen is where the iteration
-happens — tolerances at the joints, clearance for the servo horns, whether a
-link is stiff enough at the printed wall thickness.
-
-![3D-printed leg beside the Fusion 360 model of the same part on screen](./printed-vs-cad.jpg)
-
-
-
 ![The assembled hardware in front of the CAD model of the full walker](./assembly-cad.jpg)
 
-The feet were their own problem: they carry the whole load at the moment of
-contact, and on this design they're also the most visually distinctive part.
-
-![Detail of the printed clawed foot](./foot-detail.jpg)
+Seeing the robot stand on one leg and balance with the weight of the power bank and other electronics was the highlight of this project. It told me that this could work, in a way that seeing it on a screen could not. 
 
 ## The kinematics
 
 Once the leg had a defined geometry, the question became how to actually
-command it. Each leg is a two-link chain, so driving the foot to a point means
-solving backwards from the target position to the two joint angles.
+control it. I had heard about inverse kinematics through touring a robotic welding facility, and thought this would be the perfect oportunity to try it out. 
 
-I worked the inverse kinematics out by hand — law of cosines for the knee angle,
-then an arctangent for the hip, using the link lengths straight off the CAD
-model.
+Because I started this project well before college and before AI had taken off, I did all the derivations by hand. I met with my math teacher and we worked through the derivations, using the law of sines, cosines, and tangents to get all the angles to work. In the end, we were stumped by the fourth angle, but I created a simulation in python that showed the first two joints working together perfectly. 
+
+I could input any equation, and the ankle joint would follow that path perfectly. 
 
 ![Handwritten inverse kinematics derivation for the two-link leg, with dimensions taken from the CAD model](./ik-derivation.jpg)
 
-That sheet is the bridge between the mechanical design and the code. Without it
-the servos are just three arbitrary angles; with it, the foot goes where you
-tell it.
 
 ## Result
 
-Still ongoing, which is the point of it. It's the project where I get to be
-wrong cheaply — and the loop of *prototype the mechanism, derive the math, model
-it, print it, find out what I missed* is the closest thing I've had to real
-engineering practice outside of a lab.
+This project is still ongoing, and is one of my favorite personal projects. I am currently working on implementing a bowden system, more similiar to how animals articulate their joints. I have also done some research into a hydrolic system, and am very excited for the future of this project. 
