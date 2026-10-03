@@ -1,7 +1,9 @@
 # About
 
-As a Colorado native, it was the mountains that brought me to engineering. As a
-gearhead, it was cars that brought me to mechanical engineering.
+As a Colorado native, it was the mountains that taught me to love the
+environment. As a gearhead, it was cars that brought me to mechanical
+engineering. My passions lie where these two meet: emissions and aerosol
+research.
 
 Working on engines got me curious about what comes out of the tailpipe, and
 that curiosity is what pulled me toward emissions and aerosol research.

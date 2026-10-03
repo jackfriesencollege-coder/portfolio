@@ -40,7 +40,6 @@ const certs = site.certifications;
     <div class="head">
       <div>
         <h1>Resume</h1>
-        <p class="source">Kept in sync with my master document</p>
       </div>
 
       <div class="actions">
@@ -62,22 +61,24 @@ const certs = site.certifications;
       class="viewer"
       title={`${site.name} — resume`}
     >
-      <div class="viewer__fallback">
-        <p><strong>Your browser can't display the PDF here.</strong></p>
-        <p class="viewer__hint">Open or download it instead — it's the same document.</p>
-        <div class="actions">
-          <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" class="btn">
-            Open the PDF
-          </a>
-          <a href="/resume.pdf?download" class="btn btn--ghost">Download</a>
-        </div>
+      {/* If the browser can't show the PDF, it quietly shows the text version. */}
+      <div class="resume resume--inline" data-resume>
+        {
+          resumeHtml ? (
+            <Fragment set:html={resumeHtml} />
+          ) : (
+            <p class="placeholder">
+              Loading my resume… you can also <a href="/resume.pdf">read it as a PDF</a>.
+            </p>
+          )
+        }
       </div>
     </object>
 
     {/* Phones can't show an embedded PDF without pinch-zooming, so they get the
         same resume as flowing text. This is also what search engines and screen
         readers read, which a PDF embed gives them no way to do. */}
-    <div class="resume" id="resume-body">
+    <div class="resume" data-resume>
       {
         resumeHtml ? (
           <Fragment set:html={resumeHtml} />
@@ -162,15 +163,15 @@ const certs = site.certifications;
      Silent on failure: under `npm run dev` this endpoint doesn't exist, and
      the already-rendered resume is a perfectly good answer either way. */
   (async () => {
-    const target = document.getElementById('resume-body');
-    if (!target) return;
+    const targets = document.querySelectorAll('[data-resume]');
+    if (targets.length === 0) return;
 
     try {
       const res = await fetch('/api/resume', { headers: { accept: 'text/html' } });
       if (!res.ok) return;
 
       const html = (await res.text()).trim();
-      if (html) target.innerHTML = html;
+      if (html) targets.forEach((target) => (target.innerHTML = html));
     } catch {
       /* Offline or endpoint unavailable — keep what's on the page. */
     }
@@ -188,14 +189,6 @@ const certs = site.certifications;
     align-items: flex-end;
     justify-content: space-between;
     gap: 1.25rem 2rem;
-  }
-
-  .source {
-    margin-top: 0.5rem;
-    color: var(--ink-faint);
-    font-family: var(--font-mono);
-    font-size: 0.78rem;
-    letter-spacing: 0.06em;
   }
 
   .actions {
@@ -226,19 +219,6 @@ const certs = site.certifications;
     background: var(--surface);
   }
 
-  .viewer__fallback {
-    display: grid;
-    gap: 0.5rem;
-    justify-items: start;
-    padding: 2.5rem;
-  }
-
-  .viewer__hint {
-    color: var(--ink-soft);
-    font-size: 0.92rem;
-    margin-bottom: 0.75rem;
-  }
-
   /* ---- The resume as text ----------------------------------------------
      Shown on phones, where an embedded PDF is unreadable. These styles target
      markup generated from the Google Doc, so they're written against plain
@@ -247,6 +227,12 @@ const certs = site.certifications;
   .resume {
     display: none;
     max-width: 46rem;
+  }
+
+  /* The copy inside the PDF frame only ever appears when the PDF can't. */
+  .resume--inline {
+    display: block;
+    padding: 2rem;
   }
 
   /* Section titles are normalised to small caps here, which keeps them

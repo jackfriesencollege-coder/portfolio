@@ -15,11 +15,11 @@ export const site = {
 
   /* One line under your name on the home page. Keep it short. */
   tagline:
-    'I design, build, and instrument physical systems — from PID-controlled research equipment to passive solar stills.',
+    'Making real world change through hands-on implementation',
 
   /* The paragraph under the tagline on the home page. */
   intro:
-    "I'm a mechanical engineering student at Colorado State University and a Walter Scott, Jr. Scholar. My work sits where hardware meets instrumentation: designing PCBs and control loops for research equipment, prototyping thermal systems, and testing them until the data holds up. Before engineering school I was a crew chief at a tire shop and rebuilt a cylinder head in my garage — I like problems that end with something physical that works.",
+    "I am a mechanical engineering student at Colorado State University and a lover of cars and the mountains. My passions lie right where these two meet: emissions research. I want to create more efficient forms of energy so that the place we call home stays beautiful for generations to come.",
 
   /* ---- Contact -------------------------------------------------------- */
   email: 'jackfriesen07@gmail.com',
