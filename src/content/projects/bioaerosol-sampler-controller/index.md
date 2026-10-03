@@ -19,11 +19,11 @@ A virtual impactor uses complex airflow to concentrate particles from a large vo
 
 ## Where I started
 
-His design was clever, but it relied on a large number of electronic components compared to his previous, entirely analog designs.
+My PI's design was clever, but it relied on a large number of electronic components compared to his previous, entirely analog designs.
 
 ![The original controller rig: Arduino, screen, buttons, and breadboard on a plywood panel, wired to the sampler motor](./prototype-rig.jpg)
 
-He had designed a basic button-based controller that allowed you to manually set the voltage of the motor, but there was no feedback, and this sampler relied on knowing exactly how much air had passed through the impactor in order to function properly. This meant I had to integrate a flow sensor and a feedback controller into the system.
+My PI had designed a basic button-based controller that allowed you to manually set the voltage of the motor, but there was no feedback, and this sampler relied on knowing exactly how much air had passed through the impactor in order to function properly. This meant I had to integrate a flow sensor and a feedback controller into the system.
 
 ## Electronics
 
@@ -55,6 +55,10 @@ I integrated the power supply, circuit board, buttons, screen, switch, and wires
 
 ![The control electronics in their enclosure](./enclosure.jpg)
 
+## The control loop
+
+On top of that hardware, I implemented and tuned a PID feedback controller that reads live pressure and flow data and continuously corrects the flow rate, allowing us to know the exact volume of air we are sampling.
+
 ## Characterizing the instrument
 
 Before sending the instrument out into the field, we wanted to ensure that the internal pressure drops would not be too extreme for the organic material we were trying to sample. I designed, set up, and ran a characterization experiment and gathered the results: the pressure drops were minimal, and the organics going through the system should survive.
@@ -64,10 +68,6 @@ Before sending the instrument out into the field, we wanted to ensure that the i
 ![Contour maps of minor and major flow pressure drop against motor flow and vacuum flow](./pressure-drop.png)
 
 These are the results. The largest pressure drop we saw was about 8,500 pascals, which is well within what the organics we are sampling can tolerate.
-
-## The control loop
-
-On top of that hardware, I implemented and tuned a PID feedback controller that reads live pressure and flow data and continuously corrects the flow rate, allowing us to know the exact volume of air we are sampling.
 
 ## Result
 

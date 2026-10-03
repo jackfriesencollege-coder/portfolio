@@ -5,9 +5,6 @@ environment. As a gearhead, it was cars that brought me to mechanical
 engineering. My passions lie where these two meet: emissions and aerosol
 research.
 
-Working on engines got me curious about what comes out of the tailpipe, and
-that curiosity is what pulled me toward emissions and aerosol research.
-
 ## Purpose
 
 ![The CSU Powerhouse counter showing tonnes of CO2 equivalent saved by research linked to the building](../assets/about/co2-counter.png)
