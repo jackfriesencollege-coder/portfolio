@@ -67,7 +67,7 @@ changing means redrawing it every time a connector moves.
 
 ![The control electronics in their enclosure](./enclosure.jpg)
 
-## Characterising the instrument
+## Characterizing the instrument
 
 Before the loop could hold a flow rate, we needed to know how the impactor
 behaves — how pressure drop across the minor and major flows varies with both

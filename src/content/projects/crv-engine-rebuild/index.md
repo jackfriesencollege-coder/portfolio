@@ -53,10 +53,10 @@ identical, and every valve, spring, retainer, and keeper needs to go back into
 the bore it came out of. Parts that look interchangeable aren't — they've worn
 together.
 
-I laid the components out in bore order and labelled them as they came off, so
+I laid the components out in bore order and labeled them as they came off, so
 reassembly was a matter of reading the map instead of guessing.
 
-![Valvetrain components laid out and labelled by cylinder during disassembly](./valve-labeling.jpg)
+![Valvetrain components laid out and labeled by cylinder during disassembly](./valve-labeling.jpg)
 
 ## Result
 

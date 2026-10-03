@@ -30,18 +30,18 @@ Which means the geometry *is* the pump. Get the height difference between
 reservoir and collector wrong, or the tube runs wrong, and the loop never
 establishes — there's no motor to cover for a bad layout.
 
-![Early hand sketch of the thermosiphon still, showing the hot and cold sides of the collector, the vapour path, and the condenser](./concept-sketch.jpg)
+![Early hand sketch of the thermosiphon still, showing the hot and cold sides of the collector, the vapor path, and the condenser](./concept-sketch.jpg)
 
 That sketch is where the layout got settled: a serpentine collector run in
 ½-inch PVC, driven by the pressure difference the sun's temperature gradient
-creates, feeding a tank with a one-way vapour path to a condenser.
+creates, feeding a tank with a one-way vapor path to a condenser.
 
 ![CAD render of the tank and collector assembly](./cad-render.png)
 
 ## Simulating before building
 
 Because the whole design depends on convection actually establishing itself, we
-modelled the collector in **OpenFOAM** before committing to a build. A
+modeled the collector in **OpenFOAM** before committing to a build. A
 thermosiphon that doesn't siphon is just a pile of tubing.
 
 ![OpenFOAM simulation of flow through the serpentine collector](./openfoam.png)
@@ -69,7 +69,7 @@ Home Depot bucket, elevated to give the loop the head it needs.
 - Convective flow and pressure containment both **confirmed on the physical
   prototype**
 
-Worth being precise about which of those came from where: the flow behaviour and
+Worth being precise about which of those came from where: the flow behavior and
 the sealing were verified on the build, but the 3 L/hour figure is the
 simulation's prediction. A full sunrise-to-sunset yield test on the physical
 still is the piece still missing.

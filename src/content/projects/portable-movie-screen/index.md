@@ -1,6 +1,6 @@
 ---
 title: 'Portable Drive-In Movie Screen'
-blurb: 'A 7-foot freestanding PVC frame holding an 80-inch screen, modelled in Fusion 360 and built to pack into a car — a drive-in movie you can set up anywhere.'
+blurb: 'A 7-foot freestanding PVC frame holding an 80-inch screen, modeled in Fusion 360 and built to pack into a car — a drive-in movie you can set up anywhere.'
 date: 2026-03-15
 tags: ['Fusion 360', 'Fabrication', 'PVC']
 cover: './cad.jpg'
@@ -35,7 +35,7 @@ packing into a car wants small and light.
 
 ## CAD first
 
-I modelled the entire frame in **Fusion 360** before buying anything. With PVC
+I modeled the entire frame in **Fusion 360** before buying anything. With PVC
 you're constrained to fittings that actually exist — specific elbows, tees, and
 pipe diameters — so working it out in CAD first meant the cut list and the
 fitting count were settled before I made a single cut.
@@ -66,7 +66,7 @@ everything else.
 A working portable screen that sets up on flat ground and takes a projected image
 well — and, from the front seat, a drive-in you can put anywhere.
 
-![The view from inside the car: a movie playing on the screen through the windscreen](./drivein.jpg)
+![The view from inside the car: a movie playing on the screen through the windshield](./drivein.jpg)
 
 The useful lesson was how much a soft, personal requirement — *this has to be
 easy enough that we'll actually bother* — behaves exactly like an engineering

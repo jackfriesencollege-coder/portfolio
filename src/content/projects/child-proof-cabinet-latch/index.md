@@ -58,7 +58,7 @@ depends on a consistent restoring force through thousands of cycles. Using an
 off-the-shelf spring was a deliberate trade: one non-printed part in exchange for
 force consistency and durability the printer can't deliver.
 
-**Parts were oriented flat on the bed** to maximise bed contact and improve
+**Parts were oriented flat on the bed** to maximize bed contact and improve
 dimensional accuracy on the mounting and interface surfaces, and the trigger arm
 was oriented so its load runs along the print layers rather than across them —
 FDM parts split between layers long before they break along one.

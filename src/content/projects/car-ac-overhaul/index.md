@@ -22,7 +22,7 @@ the tools and supplies we brought with us from home.
 
 ![The repair set up in the rental driveway, tools laid out under a pop-up canopy](./montana-driveway.jpg)
 
-Everything in that photo travelled across the country with us in our SUV.
+Everything in that photo traveled across the country with us in our SUV.
 
 ## Finding the leak
 

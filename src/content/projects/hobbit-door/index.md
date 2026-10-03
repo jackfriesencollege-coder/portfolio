@@ -1,6 +1,6 @@
 ---
 title: 'Full-Size Hobbit Door'
-blurb: 'An 8-foot functional round door, modelled in CAD and built over three months — scope I chose to take on well past what the assignment asked for.'
+blurb: 'An 8-foot functional round door, modeled in CAD and built over three months — scope I chose to take on well past what the assignment asked for.'
 date: 2024-07-15
 tags: ['CAD', 'Woodworking', 'Fabrication']
 cover: './cover.jpg'
@@ -46,7 +46,7 @@ bind against the frame partway through its swing.
 
 ![The bare wood round door hung in its opening, standing open](./installed.jpg)
 
-Painted and finished, with strap hinges and a centred knob.
+Painted and finished, with strap hinges and a centered knob.
 
 ![Jack standing beside the finished green door for scale](./scale.jpg)
 

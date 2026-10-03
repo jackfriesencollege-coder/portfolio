@@ -1,5 +1,5 @@
 ---
-title: 'Two-Colour Pyrometer for Fire Radiative Power'
+title: 'Two-Color Pyrometer for Fire Radiative Power'
 blurb: 'A sub-$1000 handheld instrument to measure the radiative power of small fires — and the ray-tracing simulation that found a broken assumption underneath the optical design.'
 date: 2026-05-05
 tags: ['Optics', 'Instrumentation', 'Research', 'Simulation']
@@ -21,7 +21,7 @@ largely unquantified.
 power of a fire in W/m², and it corresponds directly to how much that fire is
 emitting. Measure FRP and you can estimate emissions.
 
-The instrument that measures it is a **two-colour pyrometer**: it reads the same
+The instrument that measures it is a **two-color pyrometer**: it reads the same
 source at two different infrared wavelengths and uses the *ratio* between them to
 infer temperature. Working from a ratio is the point — it cancels out much of
 what would otherwise wreck the measurement, including how much of the sensor's
@@ -62,7 +62,7 @@ working sensor that merely needed calibrating, which is why it survived so long.
 With the detector working, results still moved between sessions, because the
 photodiode's distance from the lens was being set by hand each time.
 
-I modelled and printed a **jig holding the photodiode exactly 250 mm from the
+I modeled and printed a **jig holding the photodiode exactly 250 mm from the
 lens** regardless of how the assembly is handled. Dragging the diode through the
 dispersed spectrum then produced a response curve matching the PD24 datasheet —
 the sensor was finally doing what its documentation said it would.
@@ -87,7 +87,7 @@ it turned up something that changed how we understood the instrument.
 ![Ray-tracing simulation of the source, lenses, and prism](./ray-simulation.png)
 
 Feed the model a beam of perfectly parallel rays and everything converges to a
-point at 250 mm — the behaviour the design assumed. Feed it the *actual* source
+point at 250 mm — the behavior the design assumed. Feed it the *actual* source
 and no such point appears. The light spreads into a **projected image of the
 bulb's filament**.
 
@@ -122,7 +122,7 @@ calibration the whole instrument depends on.
 
 ![Detector response captured during a sweep](./signal-trace.jpg)
 
-What remains is implementing the second photodiode — the "two colour" half, which
+What remains is implementing the second photodiode — the "two color" half, which
 needs the exact diffraction angles the simulation showed are hard to pin down —
 and condensing the bench into something portable.
 

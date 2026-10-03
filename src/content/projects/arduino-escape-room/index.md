@@ -41,7 +41,7 @@ round.
 
 ## The controller
 
-Players don't touch a keyboard. Input is a **custom 3D-printed D-pad** I modelled
+Players don't touch a keyboard. Input is a **custom 3D-printed D-pad** I modeled
 in CAD: a base that houses the breadboard, four printed button caps, and a lid
 that captures them.
 
