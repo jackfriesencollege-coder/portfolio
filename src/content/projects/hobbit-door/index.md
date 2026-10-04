@@ -1,6 +1,6 @@
 ---
 title: 'Full-Size Hobbit Door'
-blurb: 'An 8-foot functional round door, modeled in CAD and built over three months — scope I chose to take on well past what the assignment asked for.'
+blurb: 'An 8-foot functional round door, modeled in CAD and built over three months.'
 date: 2024-07-15
 tags: ['CAD', 'Woodworking', 'Fabrication']
 cover: './cover.jpg'
@@ -11,53 +11,36 @@ timeframe: 'Summer 2024'
 
 ## The problem
 
-A round door is a carpentry problem wearing a costume. Normal door framing
-quietly depends on right angles — square jambs, a flat top, hinges on a straight
-edge. A circle gives you none of that, and it still has to hang true, swing
-without binding, and close against its opening.
-
-The project also grew. It started smaller than it finished, and I chose to scale
-it to a full **8-foot functional door** rather than stop at what was asked for.
+As part of being a student leader at my high school, I was tasked with planning a Homecoming dance one fall. I took this opportunity to make something awesome, and I decided to build a giant Hobbit door to make the dance something special.
 
 ## Laying it out
 
-Everything downstream depends on the circle being right. I built up the panel
-first, then struck the arc across the assembled boards so the grain ran
-continuously through the finished face.
+I started by taking measurements of the entrance to the dance hall, looking at reference images, and eventually designing the entire door in CAD. I went to the hardware store, bought all the materials I needed, and began construction.
 
 ![Marking out the circle across an assembled plank panel in the shop](./marking-out.jpg)
 
-Cutting it is the committing step — there's no undo on a circle.
-
 ![Cutting the circular door out of the panel with a jigsaw](./cutting.jpg)
+
+The door ended up weighing close to 60 pounds, so additional hinges were needed to keep it stable and supported.
 
 ## Moving it
 
-An 8-foot door is a reminder that dimensions on a screen have consequences. It
-had to be transported standing up and strapped down.
+After I built it in my garage, I had a friend help me transport it across the city to my high school. We strapped it down and locked everything in place.
 
 ![The door panel strapped upright in a pickup bed for transport](./transport.jpg)
 
-## Hanging it
+## Mounting it
 
-Hung in its opening and swinging. This is the point where you find out whether
-the layout was actually accurate, because a circle that's even slightly out will
-bind against the frame partway through its swing.
+This was the first time I saw the door mounted in place, and seeing everything fit together so perfectly was a huge relief. I ended up being off on one dimension by an inch, but it was a simple fix: the clamps that went around the door hinges were cut slightly too long, so I took them home and had them cut to length.
 
 ![The bare wood round door hung in its opening, standing open](./installed.jpg)
 
-Painted and finished, with strap hinges and a centered knob.
+Painted and finished, the door had a centered knob and clamps around the hinges.
 
 ![Jack standing beside the finished green door for scale](./scale.jpg)
 
 ## Result
 
-A finished 8-foot working Hobbit door, built over three months of CAD, woodwork,
-and carpentry — and used as the entrance it was designed to be.
+A finished 8-foot working Hobbit door, built over three months of CAD, woodwork, and carpentry, and used as the entrance it was designed to be. The event was a huge success, and I had so much fun with this project.
 
 ![The finished door in use at an event](./in-use.jpg)
-
-The useful engineering lesson was the gap between a model that closes cleanly in
-CAD and an assembly built from material that has grain, moisture content, and
-its own opinions about staying flat. The CAD model was a starting point, not an
-answer.

@@ -14,10 +14,9 @@ timeframe: 'Summer 2023 – present'
 
 A two-legged walker is a hard mechanism. It has to carry its own weight, stay
 balanced through a gait, and do it with linkages and actuators that fit inside a
-challenging shape. The AT-ST's silhouette is all
-overhanging body and thin, reverse-jointed legs, which is exactly the wrong
-mass distribution for walking, and exactly why it's an interesting thing to try
-to build.
+challenging shape. The AT-ST's silhouette is all overhanging body and thin,
+reverse-jointed legs, which is exactly the wrong mass distribution for walking,
+and exactly why it's an interesting thing to try to build.
 
 This has been my long-running project since 2023, and it's where much of my initial love of electronics and basic mechanisms, and my knowledge of them, stems from.
 
@@ -31,7 +30,7 @@ This was the first design I had. It relied on one motor to turn the legs, and wa
 
 ![LEGO Technic and EV3 prototype of the walker standing on a table](./lego-prototype.jpg)
 
-After months of trying to make LEGOs work, I realized I needed to switch my systems. LEGOs were a great place to start and understand the physical constraints of this problem, but they did not have the capacity I needed to make this work.
+After months of trying to make LEGOs work, I realized I needed to switch platforms. LEGOs were a great place to start and understand the physical constraints of this problem, but they did not have the capacity I needed to make this work.
 
 ## CAD
 
