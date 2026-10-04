@@ -19,7 +19,7 @@ export const site = {
 
   /* The paragraph under the tagline on the home page. */
   intro:
-    "I am a mechanical engineering student at Colorado State University with a deep love for cars and the mountains. My passions lie right where these two meet: emissions research. I want to create more efficient forms of energy so that the place we call home stays beautiful for generations to come.",
+    "I am a mechanical engineering student at Colorado State University with a deep love for cars and the mountains. My passions lie right where these two meet: energy conversion. I want to create more efficient forms of energy so that the place we call home stays beautiful for generations to come.",
 
   /* ---- Contact -------------------------------------------------------- */
   email: 'jackfriesen07@gmail.com',
