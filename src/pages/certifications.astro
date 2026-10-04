@@ -1,0 +1,188 @@
+---
+import { site } from '@config';
+import Base from '../layouts/Base.astro';
+
+const certs = site.certifications;
+---
+
+<Base
+  title="Certifications"
+  description={`Certifications earned by ${site.name}, ${site.role} student at ${site.school}.`}
+>
+  {
+    certs.length > 0 && (
+      <section class="wrap section certs">
+        <p class="eyebrow">Certifications</p>
+        <h1>Certifications</h1>
+        <p class="lede prose">Professional credentials I have earned. More will be added here as I earn them.</p>
+
+        {certs.map((cert) => (
+          <article class="cert">
+            <div class="head">
+              <div>
+                <h2 class="cert__name">
+                  {cert.name}
+                  {cert.abbr && <span class="cert__abbr">{cert.abbr}</span>}
+                </h2>
+                <p class="cert__issuer">
+                  {cert.issuer}
+                  {cert.earned && <span class="cert__dot">·</span>}
+                  {cert.earned}
+                </p>
+                {cert.note && <p class="cert__note">{cert.note}</p>}
+                {cert.credentialId && (
+                  <p class="cert__id">Credential ID {cert.credentialId}</p>
+                )}
+              </div>
+
+              <div class="actions">
+                <a href={`/certifications/${cert.slug}.pdf?download`} class="btn">
+                  Download
+                </a>
+                <a
+                  href={`/certifications/${cert.slug}.pdf`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="btn btn--ghost"
+                >
+                  Open
+                </a>
+              </div>
+            </div>
+
+            <object
+              data={`/certifications/${cert.slug}.pdf`}
+              type="application/pdf"
+              class="cert__viewer"
+              style={`aspect-ratio: ${cert.aspectRatio};`}
+              title={`${cert.name} certificate`}
+            >
+              <div class="cert__fallback">
+                <a href={`/certifications/${cert.slug}.pdf`} class="btn">
+                  Open the PDF
+                </a>
+              </div>
+            </object>
+
+            {/* Phones can rarely render an embedded PDF legibly. */}
+            <div class="cert__mobile">
+              <a href={`/certifications/${cert.slug}.pdf`} class="btn">
+                View certificate
+              </a>
+            </div>
+          </article>
+        ))}
+      </section>
+    )
+  }
+</Base>
+
+<style>
+  .lede {
+    margin-top: 1rem;
+    color: var(--ink-soft);
+    font-size: 1.05rem;
+  }
+
+  .head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1.25rem 2rem;
+  }
+
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .certs {
+    padding-top: 3rem;
+  }
+
+  .cert {
+    margin-top: 2.5rem;
+  }
+
+  .cert + .cert {
+    margin-top: 3.5rem;
+  }
+
+  .cert__name {
+    font-size: 1.15rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.55rem;
+  }
+
+  .cert__abbr {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    color: var(--ink-soft);
+    background: var(--accent-soft);
+    border-radius: 3px;
+    padding: 0.2rem 0.45rem;
+  }
+
+  .cert__issuer {
+    margin-top: 0.4rem;
+    color: var(--ink-soft);
+    font-size: 0.95rem;
+  }
+
+  .cert__dot {
+    margin-inline: 0.45rem;
+    color: var(--ink-faint);
+  }
+
+  .cert__note {
+    margin-top: 0.2rem;
+    color: var(--ink-faint);
+    font-size: 0.88rem;
+  }
+
+  .cert__id {
+    margin-top: 0.35rem;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.04em;
+    color: var(--ink-faint);
+  }
+
+  .cert__viewer {
+    display: block;
+    width: 100%;
+    max-width: 52rem;
+    margin-top: 1.75rem;
+    border: 1px solid var(--rule);
+    border-radius: var(--radius);
+    background: var(--surface);
+  }
+
+  .cert__fallback {
+    display: grid;
+    gap: 0.75rem;
+    justify-items: start;
+    padding: 2.5rem;
+  }
+
+  .cert__mobile {
+    display: none;
+    margin-top: 1.5rem;
+  }
+
+  /* Phones get a button instead of an embedded PDF. */
+  @media (max-width: 48rem) {
+    .cert__viewer {
+      display: none;
+    }
+    .cert__mobile {
+      display: block;
+    }
+  }
+</style>
