@@ -9,7 +9,7 @@ research.
 
 ![The CSU Powerhouse counter showing tonnes of CO2 equivalent saved by research linked to the building](../assets/about/co2-counter.png)
 
-This is the picture that I am met with every single time I step foot in my
+This is the picture that I am met with every single time I set foot in my
 research lab, and it is this idea that keeps me going when the project is hard.
 I know that my research is making an impact on the environment, protecting the
 mountains for generations to come.

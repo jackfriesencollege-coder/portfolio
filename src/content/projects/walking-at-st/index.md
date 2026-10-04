@@ -57,9 +57,9 @@ Seeing the robot stand on one leg and balance with the weight of the power bank 
 Once the leg had a defined geometry, the question became how to actually
 control it. I had heard about inverse kinematics through touring a robotic welding facility, and thought this would be the perfect opportunity to try it out.
 
-Because I started this project well before college and before AI had taken off, I did all the derivations by hand. I met with my math teacher and we worked through the derivations, using the law of sines, cosines, and tangents to get all the angles to work. In the end, we were stumped by the fourth angle, but I created a simulation in Python that showed the first two joints working together perfectly. 
+Because I started this project well before college and before AI had taken off, I did all the derivations by hand. I met with my math teacher, and we worked through them together, using the law of sines, cosines, and tangents to get all the angles to work. In the end, we were stumped by the fourth angle, but I created a simulation in Python that showed the first two joints working together perfectly. 
 
-I could input any equation, and the ankle joint would follow that path perfectly.
+I could input any equation, and the ankle joint would follow that path exactly.
 
 ![Handwritten inverse kinematics derivation for the two-link leg, with dimensions taken from the CAD model](./ik-derivation.jpg)
 

@@ -15,7 +15,7 @@ export const site = {
 
   /* One line under your name on the home page. Keep it short. */
   tagline:
-    'Making real world change through hands-on implementation',
+    'Making real-world change through hands-on implementation',
 
   /* The paragraph under the tagline on the home page. */
   intro:
