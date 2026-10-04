@@ -15,11 +15,9 @@ One afternoon, while driving home from cross-country practice, my car suddenly s
 
 ![The 2001 Honda CR-V the rebuild was done on](./the-car.jpg)
 
-![Engine bay with the valve cover removed, camshafts and timing components exposed](./engine-bay.jpg)
-
 ## Teardown
 
-This was unlike any project I had ever done before. Being meticulous and detail-oriented was the name of the game, as a single lost bolt or incorrect torque spec meant the engine would not work.
+![Engine bay with the valve cover removed, camshafts and timing components exposed](./engine-bay.jpg)
 
 ![Cylinder head removed, showing the valve side and combustion chambers](./head-valves.jpg)
 
@@ -27,17 +25,19 @@ With the head off, I got to take a close look at the pistons of my engine, as we
 
 ![Engine block with the head removed, showing the four piston crowns](./block-pistons.jpg)
 
-Laid out on the driveway, the scope of the project becomes apparent.
-
-![Engine components laid out on the driveway during the rebuild — timing belt, gaskets, intake manifold, valve cover, and oil pan](./parts-laid-out.jpg)
-
 ## Keeping track
+
+This was unlike any project I had ever done before. Being meticulous and detail-oriented was the name of the game, as a single lost bolt or incorrect torque spec meant the engine would not work.
 
 A cylinder head comes apart into a lot of small parts that are almost identical, and every valve, spring, retainer, and bolt needs to go back into the location it came out of. Parts that look interchangeable aren't: they have specific wear patterns that match only their previous location.
 
 ![Valvetrain components laid out and labeled by cylinder during disassembly](./valve-labeling.jpg)
 
 ## Result
+
+Laid out on the driveway, the scope of the project becomes apparent.
+
+![Engine components laid out on the driveway during the rebuild — timing belt, gaskets, intake manifold, valve cover, and oil pan](./parts-laid-out.jpg)
 
 Hours of work and hundreds (not thousands) of dollars later, my car ran better than the day I bought it.
 
