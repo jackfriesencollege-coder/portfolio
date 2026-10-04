@@ -1,12 +1,12 @@
 ---
 title: 'Portable Drive-In Movie Screen'
 blurb: 'A 7-foot freestanding PVC frame holding an 80-inch screen, modeled in Fusion 360 and built to pack into a car — a drive-in movie you can set up anywhere.'
-date: 2026-03-15
+date: 2025-06-15
 tags: ['Fusion 360', 'Fabrication', 'PVC']
 cover: './cad.jpg'
 coverAlt: 'Fusion 360 model of the freestanding PVC screen frame'
 role: 'Personal project'
-timeframe: '2026'
+timeframe: '2025'
 ---
 
 ## The idea
@@ -53,6 +53,12 @@ stakes or weight.
 With the screen fitted, it's a full 80-inch surface held flat and square.
 
 ![The finished frame with the 80-inch screen mounted](./cover.jpg)
+
+I also assembled and tested the frame indoors, first bare and then with the screen fitted.
+
+![The bare PVC frame assembled in my room](./prototype-frame.jpg)
+
+![The same frame with the screen fitted](./prototype-screen.jpg)
 
 ## Packing down
 
