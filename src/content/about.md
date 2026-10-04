@@ -2,8 +2,8 @@
 
 As a Colorado native, it was the mountains that taught me to love the
 environment. As a gearhead, it was cars that brought me to mechanical
-engineering. My passions lie where these two meet: emissions and aerosol
-research.
+engineering. My passions lie where these two meet: energy conversion, and finding
+cleaner, more efficient ways to power the world we live in.
 
 ## Purpose
 
